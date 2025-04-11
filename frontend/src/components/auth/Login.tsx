@@ -8,11 +8,12 @@ const Login = () => {
       style={{
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
+        alignItems: "flex-start",
+        paddingTop: "100px",
         height: "100vh",
         width: "100vw",
-        fontFamily: "sans-serif",
-        fontWeight: "bold",
+        fontFamily: "system-ui, Avenir, Helvetica, Arial, sans-serif",
+        // fontWeight: "bold",
         background: "#142c3d",
         backgroundImage:
           "linear-gradient(0deg, rgba(20, 44, 61, 1) 0%, rgba(78, 144, 230, 1) 100%)",
@@ -89,8 +90,8 @@ const Login = () => {
         {/* Tarjeta giratoria */}
         <div
           style={{
-            width: "420px",
-            height: "500px",
+            width: "750px",
+            height: "650px",
             backgroundColor: "transparent",
             perspective: "1000px",
             textAlign: "center",
@@ -137,15 +138,25 @@ const Login = () => {
               }}
             >
               <input placeholder="Email" type="email" style={inputStyle} />
-              <input
-                placeholder="Password"
-                type="password"
-                style={inputStyle}
-              />
+              <input placeholder="Password" type="password" style={inputStyle} />
               <button type="submit" style={buttonStyle}>
-              Ingresar
+                Ingresar
               </button>
             </form>
+            <div style={{
+              backgroundColor: "transparent",
+              color: "black",
+              fontFamily: "sans-serif",
+              width: "100%",
+              textAlign: "left",
+              paddingLeft: "20px",
+              marginTop: "-1px",
+              fontSize: "14px",
+              cursor: "pointer",
+            }}>
+              ¿Olvidaste tu contraseña?
+            </div>
+
           </div>
 
           {/* Back */}
@@ -156,7 +167,7 @@ const Login = () => {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              background: "lightgrey",
+              background: "white",
               gap: "20px",
               borderRadius: "5px",
               border: "2px solid #323232",
@@ -174,9 +185,9 @@ const Login = () => {
                 color: "#323232",
               }}
             >
-              Sign up
+              Registrarse
             </div>
-
+            
             <form
               style={{
                 display: "flex",
@@ -185,17 +196,43 @@ const Login = () => {
                 gap: "20px",
               }}
             >
-              <input placeholder="Name" type="text" style={inputStyle} />
-              <input placeholder="Email" type="email" style={inputStyle} />
-              <input
-                placeholder="Password"
-                type="password"
-                style={inputStyle}
-              />
+              <div style={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "space-between",
+                gap: "10px",
+              }}>
+                <input placeholder="Primer Nombre" type="text" style={{ ...inputStyle, width: "340px" }} />
+                <input placeholder="Segundo Nombre" type="text" style={{ ...inputStyle, width: "340px" }} />
+              </div>
+
+              <div style={{ width: "715px", 
+                marginRight: "31px",
+                paddingRight:"1px",
+                marginLeft:"9px",
+                display: "flex", 
+                flexDirection: "column", 
+                gap: "18px" 
+                }}>
+                <input placeholder="Apellidos" type="text" style={inputStyle} />
+                <input placeholder="Email" type="email" style={inputStyle} />
+                <input placeholder="Teléfono" type="text" style={inputStyle} />
+              </div>
+
+              <div style={{
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "space-between",
+                gap: "10px",
+              }}>
+                <input placeholder="Contraseña" type="password" style={{ ...inputStyle, width: "340px" }} />
+                <input placeholder="Confirmar contraseña" type="password" style={{ ...inputStyle, width: "340px" }} />
+              </div>
               <button type="submit" style={buttonStyle}>
-                Sign up
+                Registrarse
               </button>
             </form>
+
           </div>
         </div>
       </div>
@@ -204,7 +241,8 @@ const Login = () => {
 };
 
 const inputStyle: React.CSSProperties = {
-  width: "310px",
+  // width: "340px",
+  width: "100%",
   height: "38px",
   borderRadius: "12px",
   border: "2px solid #323232",
@@ -219,15 +257,16 @@ const inputStyle: React.CSSProperties = {
 
 const buttonStyle: React.CSSProperties = {
   marginTop: "20px",
-  width: "120px",
+  paddingBottom: "35px",
+  width: "140px",
   height: "40px",
   borderRadius: "5px",
   border: "2px solid #323232",
-  backgroundColor: "#fff",
+  backgroundColor: "#000",
   boxShadow: "1px 1px 12px #000",
   fontSize: "17px",
   fontWeight: 600,
-  color: "#323232",
+  color: "#fff",
   cursor: "pointer",
 };
 
