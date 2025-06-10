@@ -12,7 +12,7 @@ const Login = () => {
 
   const theme = {
     background: darkMode 
-      ? 'linear-gradient(0deg, rgba(20, 44, 61, 1) 0%, rgba(78, 144, 230, 1) 100%)' 
+      ? 'linear-gradient(0deg, rgba(20, 44, 61, 1) 0%, rgb(16, 63, 125) 100%)' 
       : 'radial-gradient(circle, rgba(137, 186, 250, 1) 0%, rgba(79, 108, 255, 1) 100%)'
   };
 
