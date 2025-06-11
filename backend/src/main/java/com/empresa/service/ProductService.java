@@ -4,6 +4,8 @@ import com.empresa.dto.request.ProductRequestDTO;
 import com.empresa.dto.request.BillDetailRequestDTO;
 import com.empresa.dto.response.PaginationResponseDTO;
 import com.empresa.dto.response.ProductResponseDTO;
+import com.empresa.model.Product;
+
 import org.springframework.data.domain.Pageable;
 import java.util.List;
 
@@ -24,4 +26,5 @@ public interface ProductService {
     void decreaseProductStock(String productId, int quantity);
     void increaseProductStock(String productId, int quantity);
     int getProductStock(String productId);
+    Product getProductEntityById(String productId);
 }

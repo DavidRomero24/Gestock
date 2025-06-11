@@ -141,6 +141,12 @@ public class ProductServiceImpl implements ProductService {
         return buildPaginationResponse(productPage);
     }
 
+    @Override
+public Product getProductEntityById(String productId) {
+    return productRepository.findById(productId)
+        .orElseThrow(() -> new ResourceNotFoundException("Producto no encontrado"));
+}
+
     private PaginationResponseDTO<ProductResponseDTO> buildPaginationResponse(Page<Product> productPage) {
         List<ProductResponseDTO> content = productPage.getContent()
                 .stream()

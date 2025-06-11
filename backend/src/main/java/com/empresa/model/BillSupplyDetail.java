@@ -25,6 +25,9 @@ public class BillSupplyDetail implements Serializable {
     @Column(name = "Quantity_Product", nullable = false)
     private Integer quantityProduct;
 
+    @Column(name = "Unit_Price", nullable = false, precision = 10, scale = 2)
+    private BigDecimal unitPrice;
+
     @Column(name = "Sub_total", nullable = false, precision = 10, scale = 2)
     private BigDecimal subTotal;
 
@@ -65,6 +68,14 @@ public class BillSupplyDetail implements Serializable {
         this.quantityProduct = quantityProduct;
     }
 
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
     public BigDecimal getSubTotal() {
         return subTotal;
     }
@@ -76,7 +87,7 @@ public class BillSupplyDetail implements Serializable {
     // Clase para la clave primaria compuesta
     @Embeddable
     public static class BillSupplyDetailId implements Serializable {
-        
+
         @Column(name = "ID_Bill_Supply")
         private Integer billSupplyId;
 
@@ -87,9 +98,10 @@ public class BillSupplyDetail implements Serializable {
         public BillSupplyDetailId() {
         }
 
-        public BillSupplyDetailId(String productId, Integer billSupplyId) {
-            this.productId = productId;
+        // 👇 Constructor corregido (Integer primero, luego String)
+        public BillSupplyDetailId(Integer billSupplyId, String productId) {
             this.billSupplyId = billSupplyId;
+            this.productId = productId;
         }
 
         // Getters y Setters
@@ -115,7 +127,7 @@ public class BillSupplyDetail implements Serializable {
             if (this == o) return true;
             if (!(o instanceof BillSupplyDetailId)) return false;
             BillSupplyDetailId that = (BillSupplyDetailId) o;
-            return Objects.equals(billSupplyId, that.billSupplyId) && 
+            return Objects.equals(billSupplyId, that.billSupplyId) &&
                    Objects.equals(productId, that.productId);
         }
 

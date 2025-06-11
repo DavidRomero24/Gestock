@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "BILL_SUPPLY", schema = "GESTOCK")
@@ -23,6 +24,9 @@ public class BillSupply implements Serializable {
 
     @Column(name = "Total", nullable = false, precision = 10, scale = 2)
     private BigDecimal total;
+
+    @OneToMany(mappedBy = "billSupply", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BillSupplyDetail> details;
 
     // Constructor
     public BillSupply() {
@@ -59,6 +63,14 @@ public class BillSupply implements Serializable {
 
     public void setTotal(BigDecimal total) {
         this.total = total;
+    }
+
+    public List<BillSupplyDetail> getDetails() {
+        return details;
+    }
+
+    public void setDetails(List<BillSupplyDetail> details) {
+        this.details = details;
     }
 
     @Override

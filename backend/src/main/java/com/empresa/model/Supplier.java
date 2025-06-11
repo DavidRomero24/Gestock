@@ -1,6 +1,7 @@
 package com.empresa.model;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "SUPPLIER", schema = "GESTOCK")
@@ -33,10 +34,13 @@ public class Supplier {
 
     @ManyToOne
     @JoinColumns({
-        @JoinColumn(name = "ID_City", nullable = false),
-        @JoinColumn(name = "ID_Department", nullable = false)
+        @JoinColumn(name = "ID_Department", nullable = false),
+        @JoinColumn(name = "ID_City", nullable = false)
     })
     private City city;
+
+    @OneToMany(mappedBy = "supplier")
+    private List<BillSupply> billSupplies;
 
     // Constructores
     public Supplier() {}
@@ -125,4 +129,13 @@ public class Supplier {
     public void setCity(City city) {
         this.city = city;
     }
+
+    public List<BillSupply> getBillSupplies() {
+    return billSupplies;
+}
+
+public void setBillSupplies(List<BillSupply> billSupplies) {
+    this.billSupplies = billSupplies;
+}
+
 }
