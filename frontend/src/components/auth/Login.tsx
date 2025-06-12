@@ -19,7 +19,6 @@ const Login = () => {
   return (
     <ThemeProvider theme={theme}>
       <StyledWrapper>
-        {/* Social media icons (same as Welcome) */}
         <div className='social'>
           <div className="main">
             <div className="up">

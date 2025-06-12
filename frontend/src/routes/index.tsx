@@ -1,20 +1,30 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LoginPage from "../pages/auth/LoginPage";
 import WelcomePage from "../pages/auth/WelcomePage";
-// import RegisterPage from "../pages/auth/RegisterPage";
+import PageTwo from "../pages/auth/PageTwo";
+import ClientePage from "../pages/auth/ClientePage";
+import PanelDeControlPage from "../pages/auth/PanelDeControlPage";
+import ProveedorPage from "../pages/auth/ProveedorPage";
+import ProductoPage from "../pages/auth/ProductoPage";
+import ServicioPage from "../pages/auth/ServicioPage";
+import FacturaPage from "../pages/auth/FacturaPage";
+import SuministroPage from "../pages/auth/SuministroPage";
 
 export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-      {/* <Route path="/" element={<RegisterPage />}/> */}
 
-      <Route path="/" element={<WelcomePage />}/>
+        <Route path="/" element={<WelcomePage />} />
         <Route path="/LoginPage" element={<LoginPage />} />
-        
-        {/* <Route><div className="flex justify-center items-center min-h-screen bg-gray-950">
-     
-        // {/* <Route path="/register" element={<RegisterPage />} /> */}
+        <Route path="/PageTwo" element={<PageTwo/>}/>
+        <Route path="/ClientePage" element={<ClientePage/>}/>
+        <Route path="/PanelDeControlPage" element={<PanelDeControlPage/>}></Route>
+        <Route path="/ProveedorPage" element={<ProveedorPage />} />
+        <Route path="/ProductoPage" element={<ProductoPage />} />
+        <Route path="/ServicioPage" element={<ServicioPage />} />
+        <Route path="/FacturaPage" element={<FacturaPage />} />
+        <Route path="/SuministroPage" element={<SuministroPage />} />
       </Routes>
     </BrowserRouter>
   );

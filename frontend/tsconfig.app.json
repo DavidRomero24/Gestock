@@ -7,7 +7,13 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
-    /* Bundler mode */
+    /* ⬇️ Agrega esto */
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"]
+    },
+    /* ⬆️ */
+
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
@@ -15,7 +21,6 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
-    /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -24,3 +29,4 @@
   },
   "include": ["src"]
 }
+

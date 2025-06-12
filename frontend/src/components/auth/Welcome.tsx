@@ -16,6 +16,7 @@ const Welcome = () => {
   };
 
   return (
+    
     <ThemeProvider theme={theme}>
       <StyledWrapper>
         {/* Redes sociales */}
@@ -468,5 +469,15 @@ const StyledWrapper = styled.div`
     opacity: 1;
   }
 `;
+const lightTheme = {
+  background: 'radial-gradient(circle, rgba(137, 186, 250, 1) 0%, rgba(79, 108, 255, 1) 100%)',
+  text: '#000000',
+  cardBackground: '#ffffff',
+};
 
+const darkTheme = {
+  background: 'linear-gradient(0deg, rgba(20, 44, 61, 1) 0%, rgb(16, 63, 125) 100%)',
+  text: '#ffffff',
+  cardBackground: '#1a1a1a',
+};
 export default Welcome;
