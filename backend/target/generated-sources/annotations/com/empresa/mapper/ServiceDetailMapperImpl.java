@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-11T01:00:58-0500",
-    comments = "version: 1.5.3.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
+    date = "2025-06-12T09:00:48-0500",
+    comments = "version: 1.6.1, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
 )
 @Component
 public class ServiceDetailMapperImpl implements ServiceDetailMapper {
@@ -40,39 +40,25 @@ public class ServiceDetailMapperImpl implements ServiceDetailMapper {
 
         serviceDetailResponseDTO.setServiceId( entityServiceIdService( entity ) );
         serviceDetailResponseDTO.setServiceName( entityServiceDescription( entity ) );
-        serviceDetailResponseDTO.setDescription( entity.getDescription() );
         serviceDetailResponseDTO.setPriceService( entity.getPriceService() );
+        serviceDetailResponseDTO.setDescription( entity.getDescription() );
 
         return serviceDetailResponseDTO;
     }
 
     private String entityServiceIdService(ServiceDetail serviceDetail) {
-        if ( serviceDetail == null ) {
-            return null;
-        }
         Service service = serviceDetail.getService();
         if ( service == null ) {
             return null;
         }
-        String idService = service.getIdService();
-        if ( idService == null ) {
-            return null;
-        }
-        return idService;
+        return service.getIdService();
     }
 
     private String entityServiceDescription(ServiceDetail serviceDetail) {
-        if ( serviceDetail == null ) {
-            return null;
-        }
         Service service = serviceDetail.getService();
         if ( service == null ) {
             return null;
         }
-        String description = service.getDescription();
-        if ( description == null ) {
-            return null;
-        }
-        return description;
+        return service.getDescription();
     }
 }

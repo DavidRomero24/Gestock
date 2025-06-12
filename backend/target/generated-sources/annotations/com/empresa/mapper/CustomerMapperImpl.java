@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-11T01:00:57-0500",
-    comments = "version: 1.5.3.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
+    date = "2025-06-12T09:00:45-0500",
+    comments = "version: 1.6.1, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
 )
 @Component
 public class CustomerMapperImpl implements CustomerMapper {
@@ -34,49 +34,52 @@ public class CustomerMapperImpl implements CustomerMapper {
     }
 
     @Override
-    public CustomerResponseDTO toDto(Customer entity) {
-        if ( entity == null ) {
+    public CustomerResponseDTO toDto(Customer customer) {
+        if ( customer == null ) {
             return null;
         }
 
         CustomerResponseDTO customerResponseDTO = new CustomerResponseDTO();
 
-        customerResponseDTO.setAddress( entity.getAddress() );
-        customerResponseDTO.setEmail( entity.getEmail() );
-        customerResponseDTO.setId( entity.getId() );
-        customerResponseDTO.setPhone( entity.getPhone() );
-
-        customerResponseDTO.setFullName( generateFullName(entity) );
+        customerResponseDTO.setFullName( generateFullName( customer ) );
+        customerResponseDTO.setAddress( customer.getAddress() );
+        customerResponseDTO.setEmail( customer.getEmail() );
+        customerResponseDTO.setId( customer.getId() );
+        customerResponseDTO.setLastName1( customer.getLastName1() );
+        customerResponseDTO.setLastName2( customer.getLastName2() );
+        customerResponseDTO.setName1( customer.getName1() );
+        customerResponseDTO.setName2( customer.getName2() );
+        customerResponseDTO.setPhone( customer.getPhone() );
 
         return customerResponseDTO;
     }
 
     @Override
-    public void updateEntity(CustomerRequestDTO dto, Customer entity) {
+    public void updateEntity(CustomerRequestDTO dto, Customer customer) {
         if ( dto == null ) {
             return;
         }
 
         if ( dto.getName1() != null ) {
-            entity.setName1( dto.getName1() );
+            customer.setName1( dto.getName1() );
         }
         if ( dto.getName2() != null ) {
-            entity.setName2( dto.getName2() );
+            customer.setName2( dto.getName2() );
         }
         if ( dto.getLastName1() != null ) {
-            entity.setLastName1( dto.getLastName1() );
+            customer.setLastName1( dto.getLastName1() );
         }
         if ( dto.getLastName2() != null ) {
-            entity.setLastName2( dto.getLastName2() );
+            customer.setLastName2( dto.getLastName2() );
         }
         if ( dto.getPhone() != null ) {
-            entity.setPhone( dto.getPhone() );
+            customer.setPhone( dto.getPhone() );
         }
         if ( dto.getEmail() != null ) {
-            entity.setEmail( dto.getEmail() );
+            customer.setEmail( dto.getEmail() );
         }
         if ( dto.getAddress() != null ) {
-            entity.setAddress( dto.getAddress() );
+            customer.setAddress( dto.getAddress() );
         }
     }
 }

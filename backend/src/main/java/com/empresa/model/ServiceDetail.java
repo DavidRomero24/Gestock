@@ -13,7 +13,7 @@ public class ServiceDetail implements Serializable {
 
     @ManyToOne
     @MapsId("serviceId")
-    @JoinColumn(name = "SERVICE_ID_Service", referencedColumnName = "ID_Service", nullable = false)
+    @JoinColumn(name = "ID_Service", referencedColumnName = "ID_Service", nullable = false)
     private Service service;
 
     @ManyToOne

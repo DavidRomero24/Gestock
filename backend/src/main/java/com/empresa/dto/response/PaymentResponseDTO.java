@@ -14,13 +14,3 @@ public class PaymentResponseDTO {
     private String billReference;
     private PaymentDetailDTO paymentDetails;
 }
-
-// @Data   
-// class PaymentDetailDTO {
-//     private String transferId;
-//     private String originBank;
-//     private String accountNumber;
-//     private String transferCode;
-//     private String cashPaymentId;
-//     private String cashReference;
-// }

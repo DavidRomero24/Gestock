@@ -14,13 +14,13 @@ public class Supplier {
     @Column(name = "Name1", length = 50, nullable = false)
     private String name1;
 
-    @Column(name = "Name2", length = 50, nullable = false)
+    @Column(name = "Name2", length = 50, nullable = true)
     private String name2;
 
     @Column(name = "Last_Name1", length = 15, nullable = false)
     private String lastName1;
 
-    @Column(name = "Last_Name2", length = 15, nullable = false)
+    @Column(name = "Last_Name2", length = 15, nullable = true)
     private String lastName2;
 
     @Column(name = "Phone", length = 10, nullable = false)

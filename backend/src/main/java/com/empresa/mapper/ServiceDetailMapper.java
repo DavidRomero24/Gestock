@@ -19,11 +19,18 @@ public interface ServiceDetailMapper {
     })
     ServiceDetail toEntity(ServiceDetailRequestDTO dto);
 
-    @Mappings({
-        @Mapping(target = "serviceId", source = "service.idService"),
-        @Mapping(target = "serviceName", source = "service.description")
-    })
+    // @Mappings({
+    //     @Mapping(target = "serviceId", source = "service.idService"),
+    //     @Mapping(target = "serviceName", source = "service.description")
+    // })
+    // ServiceDetailResponseDTO toDto(ServiceDetail entity);
+
+    // @Mapping(target = "id", source = "id")
+    @Mapping(target = "serviceId", source = "service.idService")
+    @Mapping(target = "serviceName", source = "service.description")
+    @Mapping(target = "priceService", source = "priceService")
     ServiceDetailResponseDTO toDto(ServiceDetail entity);
+
 
     @Named("mapService")
     default Service mapService(String serviceId) {

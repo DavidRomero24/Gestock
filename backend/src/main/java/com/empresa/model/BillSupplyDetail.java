@@ -13,23 +13,23 @@ public class BillSupplyDetail implements Serializable {
     private BillSupplyDetailId id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("productId")
-    @JoinColumn(name = "ID_Product", nullable = false)
-    private Product product;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("billSupplyId")
     @JoinColumn(name = "ID_Bill_Supply", nullable = false)
     private BillSupply billSupply;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("productId")
+    @JoinColumn(name = "ID_Product", nullable = false)
+    private Product product;
+
     @Column(name = "Quantity_Product", nullable = false)
     private Integer quantityProduct;
 
-    @Column(name = "Unit_Price", nullable = false, precision = 10, scale = 2)
-    private BigDecimal unitPrice;
-
     @Column(name = "Sub_total", nullable = false, precision = 10, scale = 2)
     private BigDecimal subTotal;
+
+    @Column(name = "Unit_Price", nullable = false, precision = 10, scale = 2)
+    private BigDecimal unitPrice;
 
     // Constructor
     public BillSupplyDetail() {

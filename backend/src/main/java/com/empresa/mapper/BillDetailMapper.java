@@ -3,6 +3,7 @@ package com.empresa.mapper;
 import com.empresa.dto.request.BillDetailRequestDTO;
 import com.empresa.dto.response.BillDetailResponseDTO;
 import com.empresa.model.BillDetail;
+import com.empresa.model.BillDetail.BillDetailId;
 import com.empresa.model.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -22,15 +23,17 @@ public interface BillDetailMapper {
     })
     BillDetail toEntity(BillDetailRequestDTO dto);
 
-    // Convertir entidad a DTO de respuesta
-    @Mappings({
-        @Mapping(target = "productName", source = "product.name"),
-        @Mapping(target = "productId", source = "product.idProduct"),
-        @Mapping(target = "unitPrice", source = "product.price"),
-        @Mapping(target = "quantity", source = "quantity"),
-        @Mapping(target = "subTotal", source = "subTotal")
-    })
+    @Mapping(target = "productId", source = "product.idProduct")
+    @Mapping(target = "productName", source = "product.name")
+    @Mapping(target = "unitPrice", source = "product.price")
+    @Mapping(target = "quantity", source = "quantity")
+    @Mapping(target = "subTotal", expression = "java(entity.getUnitPrice().multiply(new java.math.BigDecimal(entity.getQuantity())))")
     BillDetailResponseDTO toDto(BillDetail entity);
+
+    default String map(BillDetailId id) {
+        return id != null ? id.toString() : null; // O algún campo específico del ID
+    }
+
 
     // Método auxiliar para mapear productId a Product
     @Named("mapProduct")

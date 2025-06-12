@@ -28,7 +28,11 @@ public interface ProductRepository extends JpaRepository<Product, String> {
     @Query("SELECT p FROM Product p WHERE " +
            "(:category IS NULL OR p.category = :category) AND " +
            "(LOWER(p.name) LIKE LOWER(CONCAT('%', :searchTerm, '%')))")
-    Page<Product> findByFilters(String searchTerm, String category, Pageable pageable);
+    Page<Product> findByFilters(
+        @Param("searchTerm") String searchTerm,
+        @Param("category") String category,
+        Pageable pageable
+    );
 
     @Modifying
     @Query("UPDATE Product p SET p.stock = p.stock + :quantity WHERE p.idProduct = :productId")

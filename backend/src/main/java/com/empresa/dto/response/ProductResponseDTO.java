@@ -12,4 +12,4 @@ public class ProductResponseDTO {
     private BigDecimal price;
     private String description;
     private String stockStatus; // "EN_STOCK", "BAJO_STOCK", "SIN_STOCK"
-}
+}   

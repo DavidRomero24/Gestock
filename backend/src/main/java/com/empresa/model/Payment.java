@@ -13,15 +13,6 @@ public class Payment implements Serializable {
     @Column(name = "ID_Payment")
     private Integer id;
 
-    @Column(name = "Date", nullable = false)
-    private LocalDate date;
-
-    @Column(name = "Amount_paid", nullable = false, precision = 10, scale = 2)
-    private BigDecimal amountPaid;
-
-    @Column(name = "Payment_Method", length = 30, nullable = false)
-    private String paymentMethod;
-
     // Relación con BILL
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_Bill", referencedColumnName = "ID_Bill", nullable = false)
@@ -36,6 +27,15 @@ public class Payment implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_Cash_Payment", referencedColumnName = "ID_Cash_Payment")
     private CashPayment cashPayment;
+
+    @Column(name = "Date", nullable = false)
+    private LocalDate date;
+
+    @Column(name = "Amount_paid", nullable = false, precision = 10, scale = 2)
+    private BigDecimal amountPaid;
+
+    @Column(name = "Payment_Method", length = 30, nullable = false)
+    private String paymentMethod;
 
     // Constructor vacío requerido por JPA
     public Payment() {}

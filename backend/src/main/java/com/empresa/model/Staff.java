@@ -31,10 +31,7 @@ public class Staff implements Serializable {
 
     @Column(name = "Email", length = 50)
     private String email;
-
-    @Column(name = "Address", length = 70)
-    private String address;
-
+    
     @Column(name = "Number_Phone", length = 10, nullable = false)
     private String numberPhone;
 
@@ -46,6 +43,9 @@ public class Staff implements Serializable {
 
     @Column(name = "Status", length = 20)
     private String status;
+
+    @Column(name = "Hire_Date", nullable = false)
+    private Date hireDate;
 
     // Relación con facturas (si aplica)
     
@@ -113,13 +113,6 @@ public class Staff implements Serializable {
         this.email = email;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     public String getNumberPhone() {
         return numberPhone;
@@ -160,6 +153,14 @@ public class Staff implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Date getHireDate() {
+        return hireDate;
+    }
+
+    public void setHireDate(Date hireDate) {
+        this.hireDate = hireDate;
     }
     
 }

@@ -11,15 +11,22 @@ public class City implements Serializable {
     @EmbeddedId
     private CityId id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(
+        name = "ID_Department",
+        referencedColumnName = "ID_Department",
+        insertable = false,
+        updatable = false
+    )
+    private Department department;
+
     @Column(name = "Name_City", length = 30, nullable = false)
     private String nameCity;
 
     @Column(name = "Zip_Code", length = 5, nullable = false)
     private String zipCode;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_Department", referencedColumnName = "ID_Department", insertable = false, updatable = false)
-    private Department department; // Opcional si manejas la tabla DEPARTMENT
+    // Constructors
 
     public City() {}
 
@@ -29,12 +36,22 @@ public class City implements Serializable {
         this.zipCode = zipCode;
     }
 
+    // Getters and Setters
+
     public CityId getId() {
         return id;
     }
 
     public void setId(CityId id) {
         this.id = id;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     public String getNameCity() {
@@ -53,23 +70,30 @@ public class City implements Serializable {
         this.zipCode = zipCode;
     }
 
-    public Department getDepartment() {
-        return department;
+    // Equals and HashCode
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof City)) return false;
+        City city = (City) o;
+        return Objects.equals(id, city.id);
     }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
-    // Clase interna embebida para clave compuesta
+    // EmbeddedId Class
 
     @Embeddable
     public static class CityId implements Serializable {
 
-        @Column(name = "ID_Department", length = 3)
+        @Column(name = "ID_Department", length = 3, nullable = false)
         private String departmentId;
 
-        @Column(name = "ID_City", length = 3)
+        @Column(name = "ID_City", length = 5, nullable = false)
         private String cityId;
 
         public CityId() {}
@@ -78,6 +102,8 @@ public class City implements Serializable {
             this.departmentId = departmentId;
             this.cityId = cityId;
         }
+
+        // Getters and Setters
 
         public String getDepartmentId() {
             return departmentId;
@@ -94,6 +120,8 @@ public class City implements Serializable {
         public void setCityId(String cityId) {
             this.cityId = cityId;
         }
+
+        // Equals and HashCode
 
         @Override
         public boolean equals(Object o) {

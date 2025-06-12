@@ -9,5 +9,5 @@ public class StaffStatusDTO {
     @NotBlank(message = "El nuevo estado es obligatorio")
     private String status;
 
-    private String reason;
+    // private String reason;
 }

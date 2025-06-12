@@ -5,9 +5,7 @@ import com.empresa.dto.response.StaffResponseDTO;
 import com.empresa.model.Staff;
 import org.mapstruct.*;
 import org.springframework.util.StringUtils;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
+
 
 @Mapper(componentModel = "spring",
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
@@ -18,12 +16,17 @@ public interface StaffMapper {
     @Mapping(target = "status", ignore = true) // El status se maneja por separado
     Staff toEntity(StaffRequestDTO dto);
 
-    @Mapping(target = "fullName", expression = "java(generateFullName(entity))")
-    @Mapping(target = "age", expression = "java(calculateAge(entity.getDateBirth()))")
-    StaffResponseDTO toDto(Staff entity);
+    @Mapping(target = "fullName", expression = "java(generateFullName(staff))")
+    // @Mapping(target = "fullName", expression = "java("
+    //     + "staff.getName1() + ' ' + "
+    //     + "(staff.getName2() != null ? staff.getName2() + ' ' : '') + "
+    //     + "staff.getLastName1() + ' ' + "
+    //     + "(staff.getLastName2() != null ? staff.getLastName2() : '')"
+    //     + ")")
+    StaffResponseDTO toDto(Staff staff);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateEntity(StaffRequestDTO dto, @MappingTarget Staff entity);
+    void updateEntity(StaffRequestDTO dto, @MappingTarget Staff staff);
 
     default String generateFullName(Staff staff) {
         StringBuilder fullName = new StringBuilder();
@@ -42,15 +45,6 @@ public interface StaffMapper {
         return fullName.toString();
     }
 
-    default Integer calculateAge(Date birthDate) {
-        if (birthDate == null) return null;
-        
-        LocalDate birthLocalDate = birthDate.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDate();
-                
-        return LocalDate.now().getYear() - birthLocalDate.getYear();
-    }
 
     @AfterMapping
     default void setTypeStaffUpperCase(@MappingTarget Staff staff) {

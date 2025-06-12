@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-11T01:00:58-0500",
-    comments = "version: 1.5.3.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
+    date = "2025-06-12T09:00:47-0500",
+    comments = "version: 1.6.1, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
 )
 @Component
 public class StaffMapperImpl implements StaffMapper {
@@ -29,10 +29,10 @@ public class StaffMapperImpl implements StaffMapper {
         staff.setLastName2( dto.getLastName2() );
         staff.setDateBirth( dto.getDateBirth() );
         staff.setEmail( dto.getEmail() );
-        staff.setAddress( dto.getAddress() );
         staff.setNumberPhone( dto.getNumberPhone() );
         staff.setSalary( dto.getSalary() );
         staff.setTypeStaff( dto.getTypeStaff() );
+        staff.setHireDate( dto.getHireDate() );
 
         setTypeStaffUpperCase( staff );
 
@@ -40,72 +40,71 @@ public class StaffMapperImpl implements StaffMapper {
     }
 
     @Override
-    public StaffResponseDTO toDto(Staff entity) {
-        if ( entity == null ) {
+    public StaffResponseDTO toDto(Staff staff) {
+        if ( staff == null ) {
             return null;
         }
 
         StaffResponseDTO.StaffResponseDTOBuilder staffResponseDTO = StaffResponseDTO.builder();
 
-        staffResponseDTO.address( entity.getAddress() );
-        staffResponseDTO.dateBirth( entity.getDateBirth() );
-        staffResponseDTO.email( entity.getEmail() );
-        staffResponseDTO.idStaff( entity.getIdStaff() );
-        staffResponseDTO.lastName( entity.getLastName() );
-        staffResponseDTO.lastName2( entity.getLastName2() );
-        staffResponseDTO.name1( entity.getName1() );
-        staffResponseDTO.name2( entity.getName2() );
-        staffResponseDTO.numberPhone( entity.getNumberPhone() );
-        staffResponseDTO.salary( entity.getSalary() );
-        staffResponseDTO.status( entity.getStatus() );
-        staffResponseDTO.typeStaff( entity.getTypeStaff() );
+        staffResponseDTO.dateBirth( staff.getDateBirth() );
+        staffResponseDTO.email( staff.getEmail() );
+        staffResponseDTO.hireDate( staff.getHireDate() );
+        staffResponseDTO.idStaff( staff.getIdStaff() );
+        staffResponseDTO.lastName( staff.getLastName() );
+        staffResponseDTO.lastName2( staff.getLastName2() );
+        staffResponseDTO.name1( staff.getName1() );
+        staffResponseDTO.name2( staff.getName2() );
+        staffResponseDTO.numberPhone( staff.getNumberPhone() );
+        staffResponseDTO.salary( staff.getSalary() );
+        staffResponseDTO.status( staff.getStatus() );
+        staffResponseDTO.typeStaff( staff.getTypeStaff() );
 
-        staffResponseDTO.fullName( generateFullName(entity) );
-        staffResponseDTO.age( calculateAge(entity.getDateBirth()) );
+        staffResponseDTO.fullName( generateFullName(staff) );
 
         return staffResponseDTO.build();
     }
 
     @Override
-    public void updateEntity(StaffRequestDTO dto, Staff entity) {
+    public void updateEntity(StaffRequestDTO dto, Staff staff) {
         if ( dto == null ) {
             return;
         }
 
         if ( dto.getIdStaff() != null ) {
-            entity.setIdStaff( dto.getIdStaff() );
+            staff.setIdStaff( dto.getIdStaff() );
         }
         if ( dto.getName1() != null ) {
-            entity.setName1( dto.getName1() );
+            staff.setName1( dto.getName1() );
         }
         if ( dto.getName2() != null ) {
-            entity.setName2( dto.getName2() );
+            staff.setName2( dto.getName2() );
         }
         if ( dto.getLastName() != null ) {
-            entity.setLastName( dto.getLastName() );
+            staff.setLastName( dto.getLastName() );
         }
         if ( dto.getLastName2() != null ) {
-            entity.setLastName2( dto.getLastName2() );
+            staff.setLastName2( dto.getLastName2() );
         }
         if ( dto.getDateBirth() != null ) {
-            entity.setDateBirth( dto.getDateBirth() );
+            staff.setDateBirth( dto.getDateBirth() );
         }
         if ( dto.getEmail() != null ) {
-            entity.setEmail( dto.getEmail() );
-        }
-        if ( dto.getAddress() != null ) {
-            entity.setAddress( dto.getAddress() );
+            staff.setEmail( dto.getEmail() );
         }
         if ( dto.getNumberPhone() != null ) {
-            entity.setNumberPhone( dto.getNumberPhone() );
+            staff.setNumberPhone( dto.getNumberPhone() );
         }
         if ( dto.getSalary() != null ) {
-            entity.setSalary( dto.getSalary() );
+            staff.setSalary( dto.getSalary() );
         }
         if ( dto.getTypeStaff() != null ) {
-            entity.setTypeStaff( dto.getTypeStaff() );
+            staff.setTypeStaff( dto.getTypeStaff() );
+        }
+        if ( dto.getHireDate() != null ) {
+            staff.setHireDate( dto.getHireDate() );
         }
 
-        setTypeStaffUpperCase( entity );
+        setTypeStaffUpperCase( staff );
     }
 }

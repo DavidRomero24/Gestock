@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Data
 public class PaymentRequestDTO {
-    @NotNull(message = "El ID de la factura es obligatorio")
+    @NotBlank(message = "El ID de la factura es obligatorio")
     private Integer billId;
 
     @NotNull(message = "La fecha es obligatoria")

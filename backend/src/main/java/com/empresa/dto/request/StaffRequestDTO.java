@@ -1,49 +1,3 @@
-// package com.empresa.dto.request;
-
-// import jakarta.validation.constraints.*;
-// import lombok.Data;
-// import org.springframework.format.annotation.DateTimeFormat;
-
-// import java.util.Date;
-
-// @Data
-// public class StaffRequestDTO {
-
-//     @NotBlank(message = "El primer nombre es obligatorio")
-//     @Size(max = 15, message = "El primer nombre no puede exceder 15 caracteres")
-//     private String name1;
-
-//     @Size(max = 15, message = "El segundo nombre no puede exceder 15 caracteres")
-//     private String name2;
-
-//     @NotBlank(message = "El primer apellido es obligatorio")
-//     @Size(max = 15, message = "El primer apellido no puede exceder 15 caracteres")
-//     private String lastName;
-
-//     @Size(max = 15, message = "El segundo apellido no puede exceder 15 caracteres")
-//     private String lastName2;
-
-//     @NotNull(message = "La fecha de nacimiento es obligatoria")
-//     @Past(message = "La fecha de nacimiento debe ser en el pasado")
-//     @DateTimeFormat(pattern = "yyyy-MM-dd")
-//     private Date dateBirth;
-
-//     @Email(message = "El email debe ser válido")
-//     @Size(max = 30, message = "El email no puede exceder 30 caracteres")
-//     private String email;
-
-//     @NotBlank(message = "El teléfono es obligatorio")
-//     @Pattern(regexp = "\\d{10}", message = "El teléfono debe tener 10 dígitos")
-//     private String numberPhone;
-
-//     @NotNull(message = "El salario es obligatorio")
-//     @Positive(message = "El salario debe ser positivo")
-//     private Double salary;
-
-//     @NotBlank(message = "El tipo de empleado es obligatorio")
-//     private String typeStaff;
-// }
-
 package com.empresa.dto.request;
 
 import jakarta.validation.constraints.*;
@@ -95,9 +49,10 @@ public class StaffRequestDTO {
     @NotBlank(message = "El tipo de empleado es obligatorio")
     private String typeStaff;
 
-    @Size(max = 50, message = "La dirección no puede exceder 50 caracteres")
-    private String address;
+    @NotNull(message = "La fecha de contratacion es obligatoria")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date hireDate;
 
-    @AssertTrue(message = "Debe aceptar los términos y condiciones")
-    private boolean acceptedTerms;
+    // @AssertTrue(message = "Debe aceptar los términos y condiciones")
+    // private boolean acceptedTerms;
 }

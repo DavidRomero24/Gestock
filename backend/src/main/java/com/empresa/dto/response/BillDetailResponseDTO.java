@@ -5,9 +5,10 @@ import java.math.BigDecimal;
 
 @Data
 public class BillDetailResponseDTO {
+    private String id;
     private String productId;
     private String productName;
-    private Integer quantity;
     private BigDecimal unitPrice;
+    private Integer quantity;
     private BigDecimal subTotal;
 }

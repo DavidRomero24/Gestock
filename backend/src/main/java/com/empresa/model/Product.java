@@ -28,9 +28,9 @@ public class Product implements Serializable {
     @Column(name = "Description", columnDefinition = "TEXT")
     private String description;
 
-    @Version
-    @Column(name = "Version")
-    private Long version; // Para control de concurrencia
+    // @Version
+    // @Column(name = "Version")
+    // private Long version; // Para control de concurrencia
 
     // Relación con BILL_DETAIL (un producto puede estar en muchos detalles de factura)
     @OneToMany(mappedBy = "product")

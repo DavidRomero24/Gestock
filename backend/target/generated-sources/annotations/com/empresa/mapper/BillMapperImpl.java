@@ -22,8 +22,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-11T01:00:59-0500",
-    comments = "version: 1.5.3.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
+    date = "2025-06-12T09:00:50-0500",
+    comments = "version: 1.6.1, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
 )
 @Component
 public class BillMapperImpl extends BillMapper {
@@ -52,7 +52,7 @@ public class BillMapperImpl extends BillMapper {
         bill.setTotal( dto.getTotal() );
         bill.setStatus( dto.getStatus() );
 
-        setDefaultValues( bill );
+        setDefaults( bill );
 
         return bill;
     }
@@ -69,7 +69,9 @@ public class BillMapperImpl extends BillMapper {
         billResponseDTO.setStaffId( billStaffIdStaff( bill ) );
         billResponseDTO.setBillDetails( billDetailListToBillDetailResponseDTOList( bill.getBillDetails() ) );
         billResponseDTO.setDate( bill.getDate() );
-        billResponseDTO.setId( bill.getId() );
+        if ( bill.getId() != null ) {
+            billResponseDTO.setId( String.valueOf( bill.getId() ) );
+        }
         billResponseDTO.setPayments( paymentListToPaymentResponseDTOList( bill.getPayments() ) );
         billResponseDTO.setServiceDetails( serviceDetailListToServiceDetailResponseDTOList( bill.getServiceDetails() ) );
         billResponseDTO.setTotal( bill.getTotal() );
@@ -123,33 +125,19 @@ public class BillMapperImpl extends BillMapper {
     }
 
     private String billCustomerId(Bill bill) {
-        if ( bill == null ) {
-            return null;
-        }
         Customer customer = bill.getCustomer();
         if ( customer == null ) {
             return null;
         }
-        String id = customer.getId();
-        if ( id == null ) {
-            return null;
-        }
-        return id;
+        return customer.getId();
     }
 
     private String billStaffIdStaff(Bill bill) {
-        if ( bill == null ) {
-            return null;
-        }
         Staff staff = bill.getStaff();
         if ( staff == null ) {
             return null;
         }
-        String idStaff = staff.getIdStaff();
-        if ( idStaff == null ) {
-            return null;
-        }
-        return idStaff;
+        return staff.getIdStaff();
     }
 
     protected List<BillDetailResponseDTO> billDetailListToBillDetailResponseDTOList(List<BillDetail> list) {

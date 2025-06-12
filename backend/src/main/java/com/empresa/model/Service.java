@@ -13,15 +13,15 @@ public class Service implements Serializable {
     @Column(name = "ID_Service", length = 15, nullable = false)
     private String idService;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_SerType", nullable = false)
+    private ServiceType serviceType;
+
     @Column(name = "Description", columnDefinition = "TEXT", nullable = false)
     private String description;
 
     @Column(name = "Price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_SerType", nullable = false)
-    private ServiceType serviceType;
 
     // Relación con ServiceDetail
     @OneToMany(mappedBy = "service", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -7,7 +7,6 @@ import com.empresa.model.Customer;
 import com.empresa.model.Staff;
 import com.empresa.model.Payment;
 import org.mapstruct.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -15,10 +14,6 @@ import java.time.LocalDate;
         nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
         uses = {BillDetailMapper.class, ServiceDetailMapper.class, PaymentMapper.class})
 public abstract class BillMapper {
-
-    @Autowired protected BillDetailMapper billDetailMapper;
-    @Autowired protected ServiceDetailMapper serviceDetailMapper;
-    @Autowired protected PaymentMapper paymentMapper;
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "customer", source = "customerId", qualifiedByName = "mapCustomer")
@@ -39,7 +34,7 @@ public abstract class BillMapper {
 
     @Named("mapCustomer")
     protected Customer mapCustomer(String customerId) {
-        if (customerId == null) return null;
+        if (customerId == null || customerId.isBlank()) return null;
         Customer customer = new Customer();
         customer.setId(customerId);
         return customer;
@@ -47,29 +42,33 @@ public abstract class BillMapper {
 
     @Named("mapStaff")
     protected Staff mapStaff(String staffId) {
-        if (staffId == null) return null;
+        if (staffId == null || staffId.isBlank()) return null;
         Staff staff = new Staff();
         staff.setIdStaff(staffId);
         return staff;
     }
 
     protected String getCustomerFullName(Customer customer) {
-        return customer.getName1() + " " + 
-               (customer.getName2() != null ? customer.getName2() + " " : "") + 
-               customer.getLastName1() + 
+        if (customer == null) return "";
+        return customer.getName1() + " " +
+               (customer.getName2() != null ? customer.getName2() + " " : "") +
+               customer.getLastName1() +
                (customer.getLastName2() != null ? " " + customer.getLastName2() : "");
     }
 
     protected String getStaffFullName(Staff staff) {
-        return staff.getName1() + " " + 
-               (staff.getName2() != null ? staff.getName2() + " " : "") + 
+        if (staff == null) return "";
+        return staff.getName1() + " " +
+               (staff.getName2() != null ? staff.getName2() + " " : "") +
                staff.getLastName();
     }
 
     protected BigDecimal calculatePaidAmount(Bill bill) {
-        return bill.getPayments().stream()
-                .map(Payment::getAmountPaid)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        return bill.getPayments() == null
+                ? BigDecimal.ZERO
+                : bill.getPayments().stream()
+                    .map(Payment::getAmountPaid)
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     protected BigDecimal calculatePendingAmount(Bill bill) {
@@ -78,7 +77,6 @@ public abstract class BillMapper {
 
     protected String determineStatus(Bill bill) {
         if (bill.getStatus() != null) return bill.getStatus();
-        
         BigDecimal pending = calculatePendingAmount(bill);
         if (pending.compareTo(BigDecimal.ZERO) <= 0) {
             return "PAGADA";
@@ -90,12 +88,8 @@ public abstract class BillMapper {
     }
 
     @AfterMapping
-    protected void setDefaultValues(@MappingTarget Bill bill) {
-        if (bill.getDate() == null) {
-            bill.setDate(LocalDate.now());
-        }
-        if (bill.getStatus() == null) {
-            bill.setStatus("PENDIENTE");
-        }
+    protected void setDefaults(@MappingTarget Bill bill) {
+        if (bill.getDate() == null) bill.setDate(LocalDate.now());
+        if (bill.getStatus() == null) bill.setStatus("PENDIENTE");
     }
 }

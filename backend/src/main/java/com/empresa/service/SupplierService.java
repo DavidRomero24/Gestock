@@ -1,45 +1,50 @@
 package com.empresa.service;
 
-import com.empresa.model.Supplier;
-import com.empresa.repository.SupplierRepository;
-import org.springframework.stereotype.Service;
-
+import com.empresa.dto.request.SupplierRequestDTO;
+import com.empresa.dto.response.SupplierResponseDTO;
 import java.util.List;
 
-@Service
-public class SupplierService {
-    
-    private final SupplierRepository supplierRepository;
+/**
+ * Interfaz que define las operaciones del servicio para la gestión de proveedores.
+ */
+public interface SupplierService {
 
-    public SupplierService(SupplierRepository supplierRepository) {
-        this.supplierRepository = supplierRepository;
-    }
+    /**
+     * Crea un nuevo proveedor basado en los datos proporcionados.
+     *
+     * @param supplierDTO Datos del proveedor a crear.
+     * @return El proveedor creado encapsulado en un DTO de respuesta.
+     */
+    SupplierResponseDTO createSupplier(SupplierRequestDTO supplierDTO);
 
-    public Supplier saveSupplier(Supplier supplier) {
-        return supplierRepository.save(supplier);
-    }
+    /**
+     * Obtiene los detalles de un proveedor por su identificador único.
+     *
+     * @param id Identificador del proveedor.
+     * @return DTO con los datos del proveedor encontrado.
+     */
+    SupplierResponseDTO getSupplierById(String id);
 
-    public Supplier findById(String id) {
-        return supplierRepository.findById(id).orElse(null);
-    }
+    /**
+     * Obtiene una lista con todos los proveedores registrados.
+     *
+     * @return Lista de proveedores encapsulados en DTOs de respuesta.
+     */
+    List<SupplierResponseDTO> getAllSuppliers();
 
-    public List<Supplier> findByCityId(String cityId) {
-        return supplierRepository.findByCityId(cityId);
-    }
+    /**
+     * Actualiza los datos de un proveedor existente.
+     *
+     * @param id Identificador del proveedor a actualizar.
+     * @param supplierDTO DTO con los nuevos datos del proveedor.
+     * @return DTO con los datos actualizados del proveedor.
+     */
+    SupplierResponseDTO updateSupplier(String id, SupplierRequestDTO supplierDTO);
 
-    public List<Supplier> findByCompanyName(String companyName) {
-        return supplierRepository.findByCompanyName(companyName);
-    }
-
-    public List<Supplier> findByNameOrLastNameContaining(String name) {
-        return supplierRepository.findByNameOrLastNameContaining(name);
-    }
-
-    public void deleteSupplier(String id) {
-        supplierRepository.deleteById(id);
-    }
-
-    public List<Supplier> findAll() {
-        return supplierRepository.findAll();
-    }
+    /**
+     * Elimina un proveedor del sistema.
+     *
+     * @param id Identificador del proveedor a eliminar.
+     */
+    void deleteSupplier(String id);
 }

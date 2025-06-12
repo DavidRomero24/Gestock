@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-11T01:00:58-0500",
-    comments = "version: 1.5.3.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
+    date = "2025-06-12T09:00:47-0500",
+    comments = "version: 1.6.1, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
 )
 @Component
 public class BillDetailMapperImpl implements BillDetailMapper {
@@ -39,57 +39,38 @@ public class BillDetailMapperImpl implements BillDetailMapper {
 
         BillDetailResponseDTO billDetailResponseDTO = new BillDetailResponseDTO();
 
-        billDetailResponseDTO.setProductName( entityProductName( entity ) );
         billDetailResponseDTO.setProductId( entityProductIdProduct( entity ) );
+        billDetailResponseDTO.setProductName( entityProductName( entity ) );
         billDetailResponseDTO.setUnitPrice( entityProductPrice( entity ) );
         billDetailResponseDTO.setQuantity( entity.getQuantity() );
-        billDetailResponseDTO.setSubTotal( entity.getSubTotal() );
+        billDetailResponseDTO.setId( map( entity.getId() ) );
+
+        billDetailResponseDTO.setSubTotal( entity.getUnitPrice().multiply(new java.math.BigDecimal(entity.getQuantity())) );
 
         return billDetailResponseDTO;
     }
 
-    private String entityProductName(BillDetail billDetail) {
-        if ( billDetail == null ) {
-            return null;
-        }
+    private String entityProductIdProduct(BillDetail billDetail) {
         Product product = billDetail.getProduct();
         if ( product == null ) {
             return null;
         }
-        String name = product.getName();
-        if ( name == null ) {
-            return null;
-        }
-        return name;
+        return product.getIdProduct();
     }
 
-    private String entityProductIdProduct(BillDetail billDetail) {
-        if ( billDetail == null ) {
-            return null;
-        }
+    private String entityProductName(BillDetail billDetail) {
         Product product = billDetail.getProduct();
         if ( product == null ) {
             return null;
         }
-        String idProduct = product.getIdProduct();
-        if ( idProduct == null ) {
-            return null;
-        }
-        return idProduct;
+        return product.getName();
     }
 
     private BigDecimal entityProductPrice(BillDetail billDetail) {
-        if ( billDetail == null ) {
-            return null;
-        }
         Product product = billDetail.getProduct();
         if ( product == null ) {
             return null;
         }
-        BigDecimal price = product.getPrice();
-        if ( price == null ) {
-            return null;
-        }
-        return price;
+        return product.getPrice();
     }
 }
