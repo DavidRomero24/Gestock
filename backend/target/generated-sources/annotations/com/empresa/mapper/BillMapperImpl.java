@@ -22,8 +22,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-12T09:00:50-0500",
-    comments = "version: 1.6.1, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
+    date = "2025-06-12T15:57:44-0500",
+    comments = "version: 1.6.1, compiler: javac, environment: Java 17.0.15 (Eclipse Adoptium)"
 )
 @Component
 public class BillMapperImpl extends BillMapper {
@@ -67,14 +67,14 @@ public class BillMapperImpl extends BillMapper {
 
         billResponseDTO.setCustomerId( billCustomerId( bill ) );
         billResponseDTO.setStaffId( billStaffIdStaff( bill ) );
-        billResponseDTO.setBillDetails( billDetailListToBillDetailResponseDTOList( bill.getBillDetails() ) );
-        billResponseDTO.setDate( bill.getDate() );
         if ( bill.getId() != null ) {
             billResponseDTO.setId( String.valueOf( bill.getId() ) );
         }
-        billResponseDTO.setPayments( paymentListToPaymentResponseDTOList( bill.getPayments() ) );
-        billResponseDTO.setServiceDetails( serviceDetailListToServiceDetailResponseDTOList( bill.getServiceDetails() ) );
+        billResponseDTO.setDate( bill.getDate() );
         billResponseDTO.setTotal( bill.getTotal() );
+        billResponseDTO.setBillDetails( billDetailListToBillDetailResponseDTOList( bill.getBillDetails() ) );
+        billResponseDTO.setServiceDetails( serviceDetailListToServiceDetailResponseDTOList( bill.getServiceDetails() ) );
+        billResponseDTO.setPayments( paymentListToPaymentResponseDTOList( bill.getPayments() ) );
 
         billResponseDTO.setCustomerName( getCustomerFullName(bill.getCustomer()) );
         billResponseDTO.setStaffName( getStaffFullName(bill.getStaff()) );
@@ -153,19 +153,6 @@ public class BillMapperImpl extends BillMapper {
         return list1;
     }
 
-    protected List<PaymentResponseDTO> paymentListToPaymentResponseDTOList(List<Payment> list) {
-        if ( list == null ) {
-            return null;
-        }
-
-        List<PaymentResponseDTO> list1 = new ArrayList<PaymentResponseDTO>( list.size() );
-        for ( Payment payment : list ) {
-            list1.add( paymentMapper.toDto( payment ) );
-        }
-
-        return list1;
-    }
-
     protected List<ServiceDetailResponseDTO> serviceDetailListToServiceDetailResponseDTOList(List<ServiceDetail> list) {
         if ( list == null ) {
             return null;
@@ -174,6 +161,19 @@ public class BillMapperImpl extends BillMapper {
         List<ServiceDetailResponseDTO> list1 = new ArrayList<ServiceDetailResponseDTO>( list.size() );
         for ( ServiceDetail serviceDetail : list ) {
             list1.add( serviceDetailMapper.toDto( serviceDetail ) );
+        }
+
+        return list1;
+    }
+
+    protected List<PaymentResponseDTO> paymentListToPaymentResponseDTOList(List<Payment> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<PaymentResponseDTO> list1 = new ArrayList<PaymentResponseDTO>( list.size() );
+        for ( Payment payment : list ) {
+            list1.add( paymentMapper.toDto( payment ) );
         }
 
         return list1;

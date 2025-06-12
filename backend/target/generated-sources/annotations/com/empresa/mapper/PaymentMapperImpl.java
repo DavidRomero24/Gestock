@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-12T09:00:48-0500",
-    comments = "version: 1.6.1, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
+    date = "2025-06-12T15:57:44-0500",
+    comments = "version: 1.6.1, compiler: javac, environment: Java 17.0.15 (Eclipse Adoptium)"
 )
 @Component
 public class PaymentMapperImpl extends PaymentMapper {
@@ -43,9 +43,9 @@ public class PaymentMapperImpl extends PaymentMapper {
 
         paymentResponseDTO.setBillId( paymentBillId( payment ) );
         paymentResponseDTO.setPaymentDetails( mapPaymentDetails( payment ) );
-        paymentResponseDTO.setAmountPaid( payment.getAmountPaid() );
-        paymentResponseDTO.setDate( payment.getDate() );
         paymentResponseDTO.setId( payment.getId() );
+        paymentResponseDTO.setDate( payment.getDate() );
+        paymentResponseDTO.setAmountPaid( payment.getAmountPaid() );
         paymentResponseDTO.setPaymentMethod( payment.getPaymentMethod() );
 
         paymentResponseDTO.setBillReference( getBillReference(payment.getBill()) );

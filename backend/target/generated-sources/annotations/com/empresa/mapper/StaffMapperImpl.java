@@ -3,13 +3,14 @@ package com.empresa.mapper;
 import com.empresa.dto.request.StaffRequestDTO;
 import com.empresa.dto.response.StaffResponseDTO;
 import com.empresa.model.Staff;
+import java.math.BigDecimal;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-12T09:00:47-0500",
-    comments = "version: 1.6.1, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
+    date = "2025-06-12T15:57:44-0500",
+    comments = "version: 1.6.1, compiler: javac, environment: Java 17.0.15 (Eclipse Adoptium)"
 )
 @Component
 public class StaffMapperImpl implements StaffMapper {
@@ -30,7 +31,9 @@ public class StaffMapperImpl implements StaffMapper {
         staff.setDateBirth( dto.getDateBirth() );
         staff.setEmail( dto.getEmail() );
         staff.setNumberPhone( dto.getNumberPhone() );
-        staff.setSalary( dto.getSalary() );
+        if ( dto.getSalary() != null ) {
+            staff.setSalary( BigDecimal.valueOf( dto.getSalary() ) );
+        }
         staff.setTypeStaff( dto.getTypeStaff() );
         staff.setHireDate( dto.getHireDate() );
 
@@ -47,18 +50,20 @@ public class StaffMapperImpl implements StaffMapper {
 
         StaffResponseDTO.StaffResponseDTOBuilder staffResponseDTO = StaffResponseDTO.builder();
 
-        staffResponseDTO.dateBirth( staff.getDateBirth() );
-        staffResponseDTO.email( staff.getEmail() );
-        staffResponseDTO.hireDate( staff.getHireDate() );
         staffResponseDTO.idStaff( staff.getIdStaff() );
-        staffResponseDTO.lastName( staff.getLastName() );
-        staffResponseDTO.lastName2( staff.getLastName2() );
         staffResponseDTO.name1( staff.getName1() );
         staffResponseDTO.name2( staff.getName2() );
+        staffResponseDTO.lastName( staff.getLastName() );
+        staffResponseDTO.lastName2( staff.getLastName2() );
+        staffResponseDTO.dateBirth( staff.getDateBirth() );
+        staffResponseDTO.email( staff.getEmail() );
         staffResponseDTO.numberPhone( staff.getNumberPhone() );
-        staffResponseDTO.salary( staff.getSalary() );
-        staffResponseDTO.status( staff.getStatus() );
+        if ( staff.getSalary() != null ) {
+            staffResponseDTO.salary( staff.getSalary().doubleValue() );
+        }
         staffResponseDTO.typeStaff( staff.getTypeStaff() );
+        staffResponseDTO.status( staff.getStatus() );
+        staffResponseDTO.hireDate( staff.getHireDate() );
 
         staffResponseDTO.fullName( generateFullName(staff) );
 
@@ -96,7 +101,7 @@ public class StaffMapperImpl implements StaffMapper {
             staff.setNumberPhone( dto.getNumberPhone() );
         }
         if ( dto.getSalary() != null ) {
-            staff.setSalary( dto.getSalary() );
+            staff.setSalary( BigDecimal.valueOf( dto.getSalary() ) );
         }
         if ( dto.getTypeStaff() != null ) {
             staff.setTypeStaff( dto.getTypeStaff() );

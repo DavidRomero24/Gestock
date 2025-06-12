@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "CASH_PAYMENTS", schema = "GESTOCK")
+@Table(name = "CASH_PAYMENT", schema = "GESTOCK")
 public class CashPayment implements Serializable {
 
     @Id

@@ -7,7 +7,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "TRANSFER_PAYMENTS", schema = "GESTOCK")
+@Table(name = "TRANSFER_PAYMENT", schema = "GESTOCK")
 public class TransferPayment implements Serializable {
 
     @Id

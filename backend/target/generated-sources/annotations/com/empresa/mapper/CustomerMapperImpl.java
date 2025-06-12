@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-12T09:00:45-0500",
-    comments = "version: 1.6.1, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
+    date = "2025-06-12T15:57:43-0500",
+    comments = "version: 1.6.1, compiler: javac, environment: Java 17.0.15 (Eclipse Adoptium)"
 )
 @Component
 public class CustomerMapperImpl implements CustomerMapper {
@@ -42,14 +42,14 @@ public class CustomerMapperImpl implements CustomerMapper {
         CustomerResponseDTO customerResponseDTO = new CustomerResponseDTO();
 
         customerResponseDTO.setFullName( generateFullName( customer ) );
-        customerResponseDTO.setAddress( customer.getAddress() );
-        customerResponseDTO.setEmail( customer.getEmail() );
         customerResponseDTO.setId( customer.getId() );
-        customerResponseDTO.setLastName1( customer.getLastName1() );
-        customerResponseDTO.setLastName2( customer.getLastName2() );
         customerResponseDTO.setName1( customer.getName1() );
         customerResponseDTO.setName2( customer.getName2() );
+        customerResponseDTO.setLastName1( customer.getLastName1() );
+        customerResponseDTO.setLastName2( customer.getLastName2() );
         customerResponseDTO.setPhone( customer.getPhone() );
+        customerResponseDTO.setEmail( customer.getEmail() );
+        customerResponseDTO.setAddress( customer.getAddress() );
 
         return customerResponseDTO;
     }

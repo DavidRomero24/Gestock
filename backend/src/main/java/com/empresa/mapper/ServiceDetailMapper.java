@@ -3,7 +3,7 @@ package com.empresa.mapper;
 import com.empresa.dto.request.ServiceDetailRequestDTO;
 import com.empresa.dto.response.ServiceDetailResponseDTO;
 import com.empresa.model.ServiceDetail;
-import com.empresa.model.Service;
+import com.empresa.model.ServiceGes;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -33,9 +33,9 @@ public interface ServiceDetailMapper {
 
 
     @Named("mapService")
-    default Service mapService(String serviceId) {
+    default ServiceGes mapService(String serviceId) {
         if (serviceId == null) return null;
-        Service service = new Service();
+        ServiceGes service = new ServiceGes();
         service.setIdService(serviceId);
         return service;
     }

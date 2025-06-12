@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-12T09:00:49-0500",
-    comments = "version: 1.6.1, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
+    date = "2025-06-12T15:57:43-0500",
+    comments = "version: 1.6.1, compiler: javac, environment: Java 17.0.15 (Eclipse Adoptium)"
 )
 @Component
 public class SupplierMapperImpl implements SupplierMapper {
@@ -47,14 +47,14 @@ public class SupplierMapperImpl implements SupplierMapper {
         supplierResponseDTO.setCity( supplierCityNameCity( supplier ) );
         supplierResponseDTO.setDepartment( supplierCityDepartmentName( supplier ) );
         supplierResponseDTO.setFullName( generateFullName( supplier ) );
-        supplierResponseDTO.setCompany( supplier.getCompany() );
-        supplierResponseDTO.setEmail( supplier.getEmail() );
         supplierResponseDTO.setId( supplier.getId() );
-        supplierResponseDTO.setLastName1( supplier.getLastName1() );
-        supplierResponseDTO.setLastName2( supplier.getLastName2() );
         supplierResponseDTO.setName1( supplier.getName1() );
         supplierResponseDTO.setName2( supplier.getName2() );
+        supplierResponseDTO.setLastName1( supplier.getLastName1() );
+        supplierResponseDTO.setLastName2( supplier.getLastName2() );
         supplierResponseDTO.setPhone( supplier.getPhone() );
+        supplierResponseDTO.setEmail( supplier.getEmail() );
+        supplierResponseDTO.setCompany( supplier.getCompany() );
 
         return supplierResponseDTO;
     }

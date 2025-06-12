@@ -1,8 +1,8 @@
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\model\Department.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\model\Payment.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\service\impl\ProductServiceImpl.java
+C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\repository\ServiceGesRepository.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\response\PaymentResponseDTO.java
-C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\repository\ServiceRepository.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\service\PaymentService.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\response\TransferPaymentResponseDTO.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\response\SupplierResponseDTO.java
@@ -14,11 +14,13 @@ C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\j
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\repository\SupplierRepository.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\controller\BillSupplyController.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\repository\CashPaymentRepository.java
+C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\service\ServiceGesService.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\request\SupplierRequestDTO.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\service\SupplierService.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\service\BillDetailService.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\service\CashPaymentService.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\request\ProductRequestDTO.java
+C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\service\impl\ServiceGesServiceImpl.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\request\StaffStatusDTO.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\request\TransferPaymentRequestDTO.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\response\BillSupplyDetailResponseDTO.java
@@ -36,6 +38,7 @@ C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\j
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\response\ProductResponseDTO.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\request\BillSupplyRequestDTO.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\model\City.java
+C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\model\ServiceGes.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\repository\DepartmentRepository.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\request\PaymentRequestDTO.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\model\BillSupplyDetail.java
@@ -47,7 +50,6 @@ C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\j
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\service\impl\CustomerServiceImpl.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\model\Product.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\service\ProductService.java
-C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\model\Service.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\mapper\CashPaymentMapper.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\request\CustomerRequestDTO.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\mapper\BillMapper.java
@@ -57,6 +59,7 @@ C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\j
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\exception\InvalidDataException.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\request\CashPaymentRequestDTO.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\mapper\ServiceDetailMapper.java
+C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\request\ServiceGesRequestDTO.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\service\BillSupplyService.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\model\TransferPayment.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\request\ServiceDetailRequestDTO.java
@@ -66,11 +69,13 @@ C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\j
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\repository\BillDetailRepository.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\controller\SupplierController.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\mapper\PaymentMapper.java
+C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\exception\IllegalOperationException.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\model\BillSupply.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\controller\PaymentController.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\response\BillSupplyResponseDTO.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\controller\StaffController.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\mapper\TransferPaymentMapper.java
+C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\response\ServiceGesResponseDTO.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\model\enums\StaffStatus.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\service\impl\CashPaymentServiceImpl.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\model\ServiceDetail.java
@@ -79,13 +84,14 @@ C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\j
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\service\impl\StaffServiceImpl.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\repository\ServiceTypeRepository.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\App.java
+C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\controller\ServiceGesController.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\service\impl\TransferPaymentServiceImpl.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\model\BillDetail.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\repository\BillSupplyDetailRepository.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\repository\CustomerRepository.java
-C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\service\ServiceService.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\controller\CustomerController.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\service\impl\SupplierServiceImpl.java
+C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\mapper\ServiceGesMapper.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\controller\BillController.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\repository\TransferPaymentRepository.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\model\Customer.java

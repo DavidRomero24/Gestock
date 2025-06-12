@@ -11,9 +11,9 @@ import java.util.List;
 public class ServiceTypeService {
     
     private final ServiceTypeRepository serviceTypeRepository;
-    private final ServiceService serviceService;
+    private final ServiceGesService serviceService;
 
-    public ServiceTypeService(ServiceTypeRepository serviceTypeRepository, ServiceService serviceService) {
+    public ServiceTypeService(ServiceTypeRepository serviceTypeRepository, ServiceGesService serviceService) {
         this.serviceTypeRepository = serviceTypeRepository;
         this.serviceService = serviceService;
     }
@@ -33,9 +33,11 @@ public class ServiceTypeService {
     @Transactional
     public void deleteServiceType(String id) throws IllegalStateException {
         // Validar que no tenga servicios asociados
-        if (!serviceService.findByServiceTypeId(id).isEmpty()) {
+        if (!serviceService.getServicesByType(id).isEmpty()) {
             throw new IllegalStateException("No se puede eliminar el tipo de servicio porque tiene servicios asociados");
         }
         serviceTypeRepository.deleteById(id);
     }
+
+
 }

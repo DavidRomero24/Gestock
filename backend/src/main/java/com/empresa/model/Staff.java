@@ -2,6 +2,7 @@ package com.empresa.model;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -35,8 +36,8 @@ public class Staff implements Serializable {
     @Column(name = "Number_Phone", length = 10, nullable = false)
     private String numberPhone;
 
-    @Column(name = "Salary", nullable = false)
-    private Double salary;
+    @Column(name = "Salary", nullable = false, precision = 10, scale = 2)
+    private BigDecimal salary;
 
     @Column(name = "Type_Staff", length = 20, nullable = false)
     private String typeStaff;
@@ -45,6 +46,7 @@ public class Staff implements Serializable {
     private String status;
 
     @Column(name = "Hire_Date", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date hireDate;
 
     // Relación con facturas (si aplica)
@@ -122,11 +124,11 @@ public class Staff implements Serializable {
         this.numberPhone = numberPhone;
     }
 
-    public Double getSalary() {
+    public BigDecimal getSalary() {
         return salary;
     }
 
-    public void setSalary(Double salary) {
+    public void setSalary(BigDecimal salary) {
         this.salary = salary;
     }
 

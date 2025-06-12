@@ -2,15 +2,15 @@ package com.empresa.mapper;
 
 import com.empresa.dto.request.ServiceDetailRequestDTO;
 import com.empresa.dto.response.ServiceDetailResponseDTO;
-import com.empresa.model.Service;
 import com.empresa.model.ServiceDetail;
+import com.empresa.model.ServiceGes;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-12T09:00:48-0500",
-    comments = "version: 1.6.1, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
+    date = "2025-06-12T15:57:44-0500",
+    comments = "version: 1.6.1, compiler: javac, environment: Java 17.0.15 (Eclipse Adoptium)"
 )
 @Component
 public class ServiceDetailMapperImpl implements ServiceDetailMapper {
@@ -47,7 +47,7 @@ public class ServiceDetailMapperImpl implements ServiceDetailMapper {
     }
 
     private String entityServiceIdService(ServiceDetail serviceDetail) {
-        Service service = serviceDetail.getService();
+        ServiceGes service = serviceDetail.getService();
         if ( service == null ) {
             return null;
         }
@@ -55,7 +55,7 @@ public class ServiceDetailMapperImpl implements ServiceDetailMapper {
     }
 
     private String entityServiceDescription(ServiceDetail serviceDetail) {
-        Service service = serviceDetail.getService();
+        ServiceGes service = serviceDetail.getService();
         if ( service == null ) {
             return null;
         }

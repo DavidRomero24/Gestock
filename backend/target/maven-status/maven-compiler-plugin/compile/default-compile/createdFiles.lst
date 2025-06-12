@@ -16,6 +16,7 @@ com\empresa\mapper\BillDetailMapper.class
 com\empresa\controller\CustomerController.class
 com\empresa\mapper\PaymentMapperImpl.class
 com\empresa\repository\BillRepository.class
+com\empresa\service\ServiceGesService.class
 com\empresa\repository\DepartmentRepository.class
 com\empresa\service\BillSupplyService.class
 com\empresa\dto\request\SupplierRequestDTO.class
@@ -31,11 +32,13 @@ com\empresa\model\City.class
 com\empresa\repository\CashPaymentRepository.class
 com\empresa\repository\TransferPaymentRepository.class
 com\empresa\service\impl\CashPaymentServiceImpl.class
+com\empresa\mapper\ServiceGesMapper.class
 com\empresa\repository\CustomerRepository.class
 com\empresa\mapper\BillDetailMapperImpl.class
 com\empresa\model\TransferPayment.class
 com\empresa\model\ServiceDetail$ServiceDetailId.class
 com\empresa\mapper\CustomerMapperImpl.class
+com\empresa\repository\ServiceGesRepository.class
 com\empresa\model\ServiceType.class
 com\empresa\mapper\BillMapperImpl.class
 com\empresa\dto\request\StaffSalaryUpdateDTO.class
@@ -52,11 +55,10 @@ com\empresa\App.class
 com\empresa\service\impl\ProductServiceImpl.class
 com\empresa\model\Staff.class
 com\empresa\controller\StaffController.class
+com\empresa\dto\request\ServiceGesRequestDTO.class
 com\empresa\service\PaymentService.class
 com\empresa\model\BillSupplyDetail.class
 com\empresa\dto\response\ErrorResponse.class
-com\empresa\service\ServiceService.class
-com\empresa\repository\ServiceRepository.class
 com\empresa\model\ServiceDetail.class
 com\empresa\mapper\CustomerMapper.class
 com\empresa\mapper\ProductMapper.class
@@ -75,12 +77,15 @@ com\empresa\dto\request\BillSupplyDetailRequestDTO.class
 com\empresa\dto\response\SupplierResponseDTO.class
 com\empresa\dto\request\CustomerRequestDTO.class
 com\empresa\mapper\StaffMapper.class
+com\empresa\controller\ServiceGesController.class
+com\empresa\mapper\ServiceGesMapperImpl.class
 com\empresa\repository\ProductRepository.class
 com\empresa\service\impl\PaymentServiceImpl.class
 com\empresa\dto\response\ProductResponseDTO.class
 com\empresa\model\Bill.class
 com\empresa\controller\SupplierController.class
 com\empresa\model\BillSupplyDetail$BillSupplyDetailId.class
+com\empresa\dto\response\ServiceGesResponseDTO.class
 com\empresa\service\CashPaymentService.class
 com\empresa\dto\request\ProductRequestDTO.class
 com\empresa\dto\response\PaymentDetailDTO.class
@@ -97,6 +102,7 @@ com\empresa\service\BillDetailService.class
 com\empresa\dto\response\PaginationResponseDTO$1.class
 com\empresa\dto\response\PaymentResponseDTO.class
 com\empresa\mapper\SupplierMapperImpl.class
+com\empresa\dto\exception\IllegalOperationException.class
 com\empresa\dto\response\ServiceDetailResponseDTO.class
 com\empresa\model\CashPayment.class
 com\empresa\repository\SupplierRepository.class
@@ -104,7 +110,7 @@ com\empresa\controller\TransferPaymentController.class
 com\empresa\model\City$CityId.class
 com\empresa\model\Payment.class
 com\empresa\dto\request\StaffRequestDTO.class
-com\empresa\model\Service.class
+com\empresa\model\ServiceGes.class
 com\empresa\dto\request\StaffStatusDTO.class
 com\empresa\repository\PaymentRepository.class
 com\empresa\model\Supplier.class

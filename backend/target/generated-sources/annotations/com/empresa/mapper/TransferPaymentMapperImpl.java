@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-12T09:00:46-0500",
-    comments = "version: 1.6.1, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
+    date = "2025-06-12T15:57:44-0500",
+    comments = "version: 1.6.1, compiler: javac, environment: Java 17.0.15 (Eclipse Adoptium)"
 )
 @Component
 public class TransferPaymentMapperImpl implements TransferPaymentMapper {
@@ -42,12 +42,12 @@ public class TransferPaymentMapperImpl implements TransferPaymentMapper {
         TransferPaymentResponseDTO transferPaymentResponseDTO = new TransferPaymentResponseDTO();
 
         transferPaymentResponseDTO.setRelatedPayments( mapPayments( entity.getPayments() ) );
-        transferPaymentResponseDTO.setAccountHolderName( entity.getAccountHolderName() );
-        transferPaymentResponseDTO.setAccountNumber( entity.getAccountNumber() );
-        transferPaymentResponseDTO.setAmount( entity.getAmount() );
         transferPaymentResponseDTO.setId( entity.getId() );
         transferPaymentResponseDTO.setOriginBank( entity.getOriginBank() );
+        transferPaymentResponseDTO.setAccountHolderName( entity.getAccountHolderName() );
+        transferPaymentResponseDTO.setAccountNumber( entity.getAccountNumber() );
         transferPaymentResponseDTO.setTransferCode( entity.getTransferCode() );
+        transferPaymentResponseDTO.setAmount( entity.getAmount() );
 
         return transferPaymentResponseDTO;
     }
