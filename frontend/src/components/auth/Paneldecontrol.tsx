@@ -44,7 +44,8 @@ const PanelControl = () => {
           <nav className="control-panel">
             <img className="img_gestockpagone" src="../src/assets/Gestock.png" alt="Logo de la empresa" />
             <ul>
-              <li><Link to="/PanelDeControlPage">Panel de control</Link></li>
+              <li style={{backgroundColor: '#eaeded'}}><Link to="/PanelDeControlPage">Panel de control</Link></li>
+              <li><Link to="/EmpleadoPage">Empleados</Link></li>
               <li><Link to="/ClientePage">Clientes</Link></li>
               <li><Link to="/ProveedorPage">Proveedores</Link></li>
               <li><Link to="/ProductoPage">Productos</Link></li>
@@ -171,7 +172,9 @@ const StyledWrapper = styled.div`
     flex: 1;
 
   }
-
+a{
+    color:black
+    }
   header {
     position: fixed;
     top: 0;
@@ -260,7 +263,7 @@ const StyledWrapper = styled.div`
 
   .data-section {
     margin-bottom: 30px;
-  background-color: rgba(255, 255, 255, 0.05); /* un toque sutil */
+  background-color: #ffffff;
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
@@ -285,7 +288,7 @@ const StyledWrapper = styled.div`
   }
 
   th {
-    background-color: ${(props) => props.theme.cardBackground};
+    background-color: rgb(99, 102, 241)
   }
 
   tr:hover {

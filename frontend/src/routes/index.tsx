@@ -9,6 +9,7 @@ import ProductoPage from "../pages/auth/ProductoPage";
 import ServicioPage from "../pages/auth/ServicioPage";
 import FacturaPage from "../pages/auth/FacturaPage";
 import SuministroPage from "../pages/auth/SuministroPage";
+import EmpleadoPage from "../pages/auth/EmpleadoPage";
 
 export default function AppRoutes() {
   return (
@@ -17,6 +18,7 @@ export default function AppRoutes() {
 
         <Route path="/" element={<WelcomePage />} />
         <Route path="/LoginPage" element={<LoginPage />} />
+        <Route path="/EmpleadoPage" element={<EmpleadoPage/>}/>
         <Route path="/PageTwo" element={<PageTwo/>}/>
         <Route path="/ClientePage" element={<ClientePage/>}/>
         <Route path="/PanelDeControlPage" element={<PanelDeControlPage/>}></Route>

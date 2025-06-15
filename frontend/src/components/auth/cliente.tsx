@@ -23,7 +23,8 @@ const ClientePage = () => {
           <img className="img_gestockpagone" src="../src/assets/Gestock.png" alt="Logo de la empresa" />
           <ul>
             <li><Link to="/PanelDeControlPage">Panel de control</Link></li>
-            <li><Link to="/ClientePage">Clientes</Link></li>
+            <li><Link to="/EmpleadoPage">Empleados</Link></li>
+            <li style={{backgroundColor: '#eaeded'}}><Link to="/ClientePage">Clientes</Link></li>
             <li><Link to="/ProveedorPage">Proveedores</Link></li>
             <li><Link to="/ProductoPage">Productos</Link></li>
             <li><Link to="/ServicioPage">Servicios</Link></li>
@@ -68,7 +69,7 @@ const ClientePage = () => {
                   <th>Confirmado</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className='tbody-cliente'>
                 {clientes.map((cliente) => (
                   <tr key={cliente.id}>
                     <td><button className="edit-btn">Editar</button></td>
@@ -117,6 +118,10 @@ const MainContent = styled.div`
     display: flex;
     flex: 1; /* Hace que este elemento ocupe el espacio restante */
   }
+
+    a{
+    color:black
+    }
   header {
     position: fixed;
     top: 0;
@@ -302,16 +307,20 @@ const TableContainer = styled.div`
       text-align: left;
     }
     .edit-btn {
-      background: #28a745;
-      color: white;
+      background: #ffffff;
+      color: black;
       border: none;
       padding: 6px 10px;
       border-radius: 4px;
       cursor: pointer;
     }
     .edit-btn:hover {
-      background: #218838;
+      background: rgba(137, 186, 250, 1);
     }
+  }
+
+  .tbody-cliente{
+  background: #0066cc;  
   }
 `;
 

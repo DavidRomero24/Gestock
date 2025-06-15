@@ -24,6 +24,7 @@ const InventoryDashboard = () => {
             <img className="img_gestockpagone" src="../src/assets/Gestock.png" alt="Logo de la empresa" />
             <ul>
               <li><Link to="/PanelDeControlPage">Panel de control</Link></li>
+              <li><Link to="/EmpleadoPage">Empleados</Link></li>
               <li><Link to="/ClientePage">Clientes</Link></li>
               <li><Link to="/ProveedorPage">Proveedores</Link></li>
               <li><Link to="/ProductoPage">Productos</Link></li>
@@ -86,7 +87,10 @@ const StyledWrapper = styled.div`
     flex: 1;
 
   }
-
+a{
+    color:black
+    }
+  }
   header {
     position: fixed;
     top: 0;
