@@ -1,10 +1,26 @@
 import { useState } from "react";
 import styled, { ThemeProvider } from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+  const navigate = useNavigate();
+
+  const [form, setForm] = useState({
+    firstName: "",
+    secondName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    password: "",
+    confirmPassword: ""
+  });
+
+  const [login, setLogin] = useState({
+    email: "",
+    password: ""
+  });
 
   const toggleTheme = () => {
     setDarkMode(!darkMode);
@@ -14,6 +30,81 @@ const Login = () => {
     background: darkMode 
       ? 'linear-gradient(0deg, rgba(20, 44, 61, 1) 0%, rgb(16, 63, 125) 100%)' 
       : 'radial-gradient(circle, rgba(137, 186, 250, 1) 0%, rgba(79, 108, 255, 1) 100%)'
+  };
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const registerData = {
+      username: form.email,
+      password: form.password,
+      confirmPassword: form.confirmPassword,
+      firstName: form.firstName,
+      secondName: form.secondName,
+      lastName: form.lastName,
+      phone: form.phone,
+      role: "USER"
+    };
+
+    try {
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(registerData)
+      });
+
+      if (!response.ok) {
+        const error = await response.text();
+        throw new Error(error);
+      }
+
+      const data = await response.json();
+      localStorage.setItem("token", data.token);
+      alert("Registro exitoso. ¡Bienvenido!");
+      navigate("/PageTwo");
+    } catch (error: unknown) {
+  if (error instanceof Error) {
+    alert("Error al registrar: " + error.message);
+  } else {
+    alert("Error desconocido al registrar.");
+  }
+}
+
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          username: login.email,
+          password: login.password
+        })
+      });
+
+      if (!response.ok) {
+        const error = await response.text();
+        throw new Error(error);
+      }
+
+      const data = await response.json();
+      localStorage.setItem("token", data.token);
+      alert("Inicio de sesión exitoso");
+      navigate("/PageTwo");
+    } catch (error: unknown) {
+  if (error instanceof Error) {
+    alert("Error al iniciar sesión: " + error.message);
+  } else {
+    alert("Error desconocido al iniciar sesión.");
+  }
+}
   };
 
   return (
@@ -48,38 +139,86 @@ const Login = () => {
           </div>
         </div>
 
-        {/* Main login container */}
         <div className="container">
-          {/* Flip card */}
           <div className={`flip-card ${isFlipped ? 'flipped' : ''}`}>
             <div className="flip-card-inner">
-              {/* Front - Login */}
               <div className="flip-card-front">
                 <h2>Iniciar Sesión</h2>
-                <form className="auth-form">
-                  <input type="email" placeholder="Email" required />
-                  <input type="password" placeholder="Contraseña" required />
+                <form className="auth-form" onSubmit={handleLogin}>
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    value={login.email}
+                    onChange={(e) => setLogin({ ...login, email: e.target.value })}
+                    required
+                  />
+                  <input
+                    type="password"
+                    placeholder="Contraseña"
+                    value={login.password}
+                    onChange={(e) => setLogin({ ...login, password: e.target.value })}
+                    required
+                  />
                   <button type="submit">Ingresar</button>
                 </form>
                 <div className="forgot-password">
                   <Link to="/forgot-password">¿Olvidaste tu contraseña?</Link>
                 </div>
               </div>
-              
-              {/* Back - Register */}
+
               <div className="flip-card-back">
                 <h2>Registrarse</h2>
-                <form className="auth-form">
+                <form className="auth-form" onSubmit={handleRegister}>
                   <div className="name-fields">
-                    <input type="text" placeholder="Primer Nombre" required />
-                    <input type="text" placeholder="Segundo Nombre" required />
+                    <input
+                      type="text"
+                      placeholder="Primer Nombre"
+                      value={form.firstName}
+                      onChange={(e) => setForm({ ...form, firstName: e.target.value })}
+                      required
+                    />
+                    <input
+                      type="text"
+                      placeholder="Segundo Nombre"
+                      value={form.secondName}
+                      onChange={(e) => setForm({ ...form, secondName: e.target.value })}
+                    />
                   </div>
-                  <input type="text" placeholder="Apellidos" required />
-                  <input type="email" placeholder="Email" required />
-                  <input type="tel" placeholder="Teléfono" required />
+                  <input
+                    type="text"
+                    placeholder="Apellidos"
+                    value={form.lastName}
+                    onChange={(e) => setForm({ ...form, lastName: e.target.value })}
+                    required
+                  />
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    value={form.email}
+                    onChange={(e) => setForm({ ...form, email: e.target.value })}
+                    required
+                  />
+                  <input
+                    type="tel"
+                    placeholder="Teléfono"
+                    value={form.phone}
+                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  />
                   <div className="password-fields">
-                    <input type="password" placeholder="Contraseña" required />
-                    <input type="password" placeholder="Confirmar contraseña" required />
+                    <input
+                      type="password"
+                      placeholder="Contraseña"
+                      value={form.password}
+                      onChange={(e) => setForm({ ...form, password: e.target.value })}
+                      required
+                    />
+                    <input
+                      type="password"
+                      placeholder="Confirmar contraseña"
+                      value={form.confirmPassword}
+                      onChange={(e) => setForm({ ...form, confirmPassword: e.target.value })}
+                      required
+                    />
                   </div>
                   <button type="submit">Registrarse</button>
                 </form>
@@ -87,7 +226,6 @@ const Login = () => {
             </div>
           </div>
 
-          {/* Toggle switch */}
           <div className="toggle-switch">
             <span className={!isFlipped ? 'active' : ''}>Iniciar Sesión</span>
             <div 

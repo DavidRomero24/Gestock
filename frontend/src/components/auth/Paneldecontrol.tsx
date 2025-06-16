@@ -1,29 +1,31 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled, { ThemeProvider } from "styled-components";
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const PanelControl = () => {
+  const navigate = useNavigate();
+  const [stats, setStats] = useState([]);
+  const [topProducts, setTopProducts] = useState([]);
+  const [recentSales, setRecentSales] = useState([]);
+  const [recentlyAdded, setRecentlyAdded] = useState([]);
+  useEffect(() => {
+    fetch('http://localhost:3000/api/estadisticas')
+      .then(res => res.json())
+      .then(data => setStats(data));
 
-  const stats = [
-    { label: "Usuarios", value: 3 },
-    { label: "Categorías", value: 1 },
-    { label: "Productos", value: 3 },
-    { label: "Ventas", value: 7 }
-  ];
+    fetch('http://localhost:3000/api/productos-mas-vendidos')
+      .then(res => res.json())
+      .then(data => setTopProducts(data));
 
-  const topProducts = [{ title: "Espada MS250", totalSold: 3, totalQuantity: 4 },
-  { title: "Filtro de gasolina", totalSold: 2, totalQuantity: 2 },
-  { title: "Carburador", totalSold: 2, totalQuantity: 2 }];
-  const recentSales = [{ id: 1, product: "Espada MS250", date: "2017-06-16", total: "$100.00" },
-  { id: 2, product: "Carburador", date: "2017-06-16", total: "$80.00" },
-  { id: 3, product: "Espada MS250", date: "2017-06-16", total: "$200.00" },
-  { id: 4, product: "Filtro de gasolina", date: "2017-06-16", total: "$10.00" },
-  { id: 5, product: "Carburador", date: "2017-06-16", total: "$80.00" }];
-  const recentlyAdded = [{ id: 1, name: "Espada MS250", price: "$100", category: "Repuestos" },
-  { id: 2, name: "", price: "$20", category: "Repuestos" },
-  { id: 3, name: "", price: "$10", category: "Repuestos" }];
+    fetch('http://localhost:3000/api/ventas-recientes')
+      .then(res => res.json())
+      .then(data => setRecentSales(data));
 
-
+    fetch('http://localhost:3000/api/productos-recientes')
+      .then(res => res.json())
+      .then(data => setRecentlyAdded(data));
+  }, []);
 
   const [darkMode, setDarkMode] = useState(false);
   const theme = darkMode ? darkTheme : lightTheme;
@@ -42,9 +44,12 @@ const PanelControl = () => {
             <h1>GESTOCK</h1>
           </header>
           <nav className="control-panel">
-            <img className="img_gestockpagone" src="../src/assets/Gestock.png" alt="Logo de la empresa" />
+            <div onClick={() => navigate('/PageTwo')} style={{ cursor: 'pointer' }}>
+              <img className="img_gestockpagone" src="../src/assets/Gestock.png" alt="Logo de la empresa" />
+            </div>
             <ul>
-              <li><Link to="/PanelDeControlPage">Panel de control</Link></li>
+              <li style={{ backgroundColor: '#eaeded' }}><Link to="/PanelDeControlPage">Panel de control</Link></li>
+              <li><Link to="/EmpleadoPage">Empleados</Link></li>
               <li><Link to="/ClientePage">Clientes</Link></li>
               <li><Link to="/ProveedorPage">Proveedores</Link></li>
               <li><Link to="/ProductoPage">Productos</Link></li>
@@ -171,7 +176,9 @@ const StyledWrapper = styled.div`
     flex: 1;
 
   }
-
+a{
+    color:black
+    }
   header {
     position: fixed;
     top: 0;
@@ -260,7 +267,7 @@ const StyledWrapper = styled.div`
 
   .data-section {
     margin-bottom: 30px;
-  background-color: rgba(255, 255, 255, 0.05); /* un toque sutil */
+  background-color: #ffffff;
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
@@ -285,7 +292,7 @@ const StyledWrapper = styled.div`
   }
 
   th {
-    background-color: ${(props) => props.theme.cardBackground};
+    background-color: rgb(99, 102, 241)
   }
 
   tr:hover {

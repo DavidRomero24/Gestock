@@ -1,20 +1,47 @@
 import { useState } from 'react';
 import styled, { ThemeProvider } from "styled-components";
 import { Outlet, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ProductoPage = () => {
-  const productos = [
-    { codigo: "1001", nombre: "Mesa de noche redonda", precio: 938000 },
-    { codigo: "1002", nombre: "Adorno en cerámica rosa", precio: 368000 },
-    { codigo: "1003", nombre: "Planta decorativa", precio: 210000 },
-    { codigo: "1004", nombre: "Adorno en cerámica blanca", precio: 398000 },
-    { codigo: "1005", nombre: "Planta Kokedama", precio: 230000 },
-    { codigo: "1006", nombre: "Canasta tejida", precio: 238000 },
-  ];
+  const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(false);
   const theme = darkMode ? darkTheme : lightTheme;
   const toggleTheme = () => {
     setDarkMode(!darkMode);
+  };
+
+  // Datos iniciales de productos
+  const [productos, setProductos] = useState([
+    { id: 1, codigo: "1001", nombre: "Mesa de noche redonda", precio: 938000 },
+    { id: 2, codigo: "1002", nombre: "Adorno en cerámica rosa", precio: 368000 },
+    { id: 3, codigo: "1003", nombre: "Planta decorativa", precio: 210000 },
+    { id: 4, codigo: "1004", nombre: "Adorno en cerámica blanca", precio: 398000 },
+    { id: 5, codigo: "1005", nombre: "Planta Kokedama", precio: 230000 },
+    { id: 6, codigo: "1006", nombre: "Canasta tejida", precio: 238000 },
+  ]);
+
+  // Estado para el producto seleccionado
+  const [productoSeleccionado, setProductoSeleccionado] = useState(null);
+
+  // Función para agregar un producto a la factura
+  const agregarProducto = (producto) => {
+    console.log(`Agregando producto: ${producto.nombre}`);
+  };
+
+  // Función para eliminar un producto
+  const eliminarProducto = (id) => {
+    setProductos(productos.filter((p) => p.id !== id));
+  };
+
+  // Función para editar un producto
+  const editarProducto = (id) => {
+    console.log(`Editando producto con ID: ${id}`);
+  };
+
+  // Función para mostrar detalles de un producto
+  const verDetalles = (producto) => {
+    setProductoSeleccionado(producto);
   };
 
   return (
@@ -26,12 +53,15 @@ const ProductoPage = () => {
             <h1>GESTOCK</h1>
           </header>
           <nav className="control-panel">
-            <img className="img_gestockpagone" src="../src/assets/Gestock.png" alt="Logo de la empresa" />
+            <div onClick={() => navigate('/PageTwo')} style={{ cursor: 'pointer' }}>
+          <img className="img_gestockpagone" src="../src/assets/Gestock.png" alt="Logo de la empresa" />
+          </div>
             <ul>
               <li><Link to="/PanelDeControlPage">Panel de control</Link></li>
+              <li><Link to="/EmpleadoPage">Empleados</Link></li>
               <li><Link to="/ClientePage">Clientes</Link></li>
               <li><Link to="/ProveedorPage">Proveedores</Link></li>
-              <li><Link to="/ProductoPage">Productos</Link></li>
+              <li style={{backgroundColor: '#eaeded'}}><Link to="/ProductoPage">Productos</Link></li>
               <li><Link to="/ServicioPage">Servicios</Link></li>
               <li><Link to="/FacturaPage">Facturas</Link></li>
               <li><Link to="/SuministroPage">Suministros</Link></li>
@@ -49,7 +79,7 @@ const ProductoPage = () => {
               {/* Barra lateral izquierda */}
               <aside style={{
                 width: '60px',
-                backgroundColor: '#0f766e',
+                backgroundColor: '#1e293b',
                 color: 'white',
                 display: 'flex',
                 flexDirection: 'column',
@@ -57,12 +87,7 @@ const ProductoPage = () => {
                 paddingTop: '1rem',
                 gap: '1rem',
               }}>
-                <div>📋</div>
-                <div>🛒</div>
-                <div>💼</div>
-                <div style={{ marginTop: 'auto', marginBottom: '1rem' }}>📱</div>
               </aside>
-
               {/* Contenido principal */}
               <div style={{
                 flex: 1,
@@ -92,7 +117,6 @@ const ProductoPage = () => {
                     }}
                   />
                 </div>
-
                 {/* Sección de productos */}
                 <div style={{
                   display: 'flex',
@@ -109,9 +133,9 @@ const ProductoPage = () => {
                     gap: '1rem',
                     backgroundColor: '#f1f5f9',
                   }}>
-                    {productos.map((p, i) => (
+                    {productos.map((p) => (
                       <div
-                        key={i}
+                        key={p.id}
                         style={{
                           backgroundColor: 'white',
                           borderRadius: '0.5rem',
@@ -142,13 +166,52 @@ const ProductoPage = () => {
                             padding: '0.25rem 0.75rem',
                             borderRadius: '0.25rem',
                           }}
+                          onClick={() => agregarProducto(p)}
                         >
                           +
+                        </button>
+                        <button
+                          style={{
+                            backgroundColor: '#ff4d4d',
+                            color: 'white',
+                            border: 'none',
+                            padding: '0.25rem 0.75rem',
+                            borderRadius: '0.25rem',
+                            marginTop: '0.5rem',
+                          }}
+                          onClick={() => eliminarProducto(p.id)}
+                        >
+                          Eliminar
+                        </button>
+                        <button
+                          style={{
+                            backgroundColor: '#28a745',
+                            color: 'white',
+                            border: 'none',
+                            padding: '0.25rem 0.75rem',
+                            borderRadius: '0.25rem',
+                            marginTop: '0.5rem',
+                          }}
+                          onClick={() => editarProducto(p.id)}
+                        >
+                          Editar
+                        </button>
+                        <button
+                          style={{
+                            backgroundColor: '#6c757d',
+                            color: 'white',
+                            border: 'none',
+                            padding: '0.25rem 0.75rem',
+                            borderRadius: '0.25rem',
+                            marginTop: '0.5rem',
+                          }}
+                          onClick={() => verDetalles(p)}
+                        >
+                          Ver detalles
                         </button>
                       </div>
                     ))}
                   </section>
-
                   {/* Panel de facturación */}
                   <aside style={{
                     width: '400px',
@@ -231,12 +294,10 @@ const StyledWrapper = styled.div`
   background: ${(props) => props.theme.background};
   color: ${(props) => props.theme.text};
   font-family: Arial, sans-serif;
-
   .inventory-dashboard {
     display: flex;
     flex: 1;
   }
-
   header {
     position: fixed;
     top: 0;
@@ -255,7 +316,9 @@ const StyledWrapper = styled.div`
     font-size: 1.8rem;
     cursor: default;
   }
-
+    a{
+    color:black
+    }
   .control-panel {
     width: 220px;
     background-color: ${(props) => props.theme.cardBackground};
@@ -267,29 +330,24 @@ const StyledWrapper = styled.div`
     overflow-y: auto;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   }
-
   .control-panel h2 {
     font-size: 1.2rem;
     margin-bottom: 10px;
   }
-
   .control-panel ul {
     list-style: none;
     padding: 0;
   }
-
   .control-panel li {
     margin: 10px 0;
     cursor: pointer;
     padding: 5px 10px;
     border-radius: 5px;
   }
-
   .control-panel li:hover {
     background-color: ${(props) => props.theme.hoverBackground};
     color: ${(props) => props.theme.text};
   }
-
   .dashboard-content {
     margin-left: 220px;
     padding: 80px 440px;
@@ -301,44 +359,36 @@ const StyledWrapper = styled.div`
     justify-content: center;
     align-items: start;
   }
-
   table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
   }
-
   th, td {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
-
   th {
     background-color: ${(props) => props.theme.cardBackground};
   }
-
   tr:hover {
     background-color: rgba(255, 255, 255, 0.05);
   }
-
   .switch {
     position: fixed;
     top: 20px;
     right: 20px;
     z-index: 100;
   }
-
   .card-section {
     display: flex;
   }
-
   .img_gestockpagone {
     width: 200px;
     height: 70px;
     cursor: pointer;
   }
-
   .img_LogoGestockpagone {
     width: 60px;
     height: 60px;

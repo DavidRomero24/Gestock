@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import styled, { ThemeProvider } from "styled-components";
 import { Outlet, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const InventoryDashboard = () => {
-
+  const navigate = useNavigate();
     const [darkMode, setDarkMode] = useState(false);
     const theme = darkMode ? darkTheme : lightTheme;
 
@@ -21,15 +22,18 @@ const InventoryDashboard = () => {
                         <h1>GESTOCK</h1>
                     </header>
                     <nav className="control-panel">
-                        <img className="img_gestockpagone" src="../src/assets/Gestock.png" alt="Logo de la empresa" />
+                        <div onClick={() => navigate('/PageTwo')} style={{ cursor: 'pointer' }}>
+          <img className="img_gestockpagone" src="../src/assets/Gestock.png" alt="Logo de la empresa" />
+          </div>
                         <ul>
                             <li><Link to="/PanelDeControlPage">Panel de control</Link></li>
+                            <li><Link to="/EmpleadoPage">Empleados</Link></li>
                             <li><Link to="/ClientePage">Clientes</Link></li>
                             <li><Link to="/ProveedorPage">Proveedores</Link></li>
                             <li><Link to="/ProductoPage">Productos</Link></li>
                             <li><Link to="/ServicioPage">Servicios</Link></li>
                             <li><Link to="/FacturaPage">Facturas</Link></li>
-                            <li><Link to="/SuministroPage">Suministros</Link></li>
+                            <li style={{backgroundColor: '#eaeded'}}><Link to="/SuministroPage">Suministros</Link></li>
                         </ul>
                     </nav>
                     <main className="dashboard-content">
@@ -40,9 +44,6 @@ const InventoryDashboard = () => {
                             </div>
                             <div className="content">
                                 <div className="menu-bar">
-                                    <div>📁</div>
-                                    <div>📊</div>
-                                    <div>📋</div>
                                 </div>
                                 <div className="main-section">
                                     <div className="table-section">
@@ -124,7 +125,7 @@ const PurchaseScreen = styled.div`
   background: #f3f4f6;
 
   .topbar {
-    background: #007bff;
+    background: #0066cc;
     color: white;
     padding: 0.75rem 1rem;
     display: flex;
@@ -140,7 +141,7 @@ const PurchaseScreen = styled.div`
 
   .menu-bar {
     width: 60px;
-    background: #2d2f31;
+    background: #1e293b;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -227,7 +228,9 @@ const StyledWrapper = styled.div`
     flex: 1;
 
   }
-
+a{
+    color:black
+    }
   header {
     position: fixed;
     top: 0;

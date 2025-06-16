@@ -3,7 +3,6 @@ package com.empresa.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
-// import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
@@ -14,6 +13,7 @@ import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtService {
@@ -26,18 +26,28 @@ public class JwtService {
     @PostConstruct
     public void init() {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
-        key = Keys.hmacShaKeyFor(keyBytes); // ✅ SecretKey específico
+        key = Keys.hmacShaKeyFor(keyBytes);
         parser = Jwts.parser()
-                .verifyWith(key)          // ✅ Correcto tipo esperado
-                .build();                 // ✅ build final del parser
+                .verifyWith(key)
+                .build();
     }
 
     public String generateToken(UserDetails userDetails) {
-        return buildToken(Map.of(), userDetails, 86400000); // 24 horas
+        Map<String, Object> extraClaims = Map.of(
+                "authorities", userDetails.getAuthorities().stream()
+                        .map(auth -> auth.getAuthority())
+                        .collect(Collectors.toList())
+        );
+        return buildToken(extraClaims, userDetails, 86400000); // 24 horas
     }
 
     public String generateRefreshToken(UserDetails userDetails) {
-        return buildToken(Map.of(), userDetails, 604800000); // 7 días
+        Map<String, Object> extraClaims = Map.of(
+                "authorities", userDetails.getAuthorities().stream()
+                        .map(auth -> auth.getAuthority())
+                        .collect(Collectors.toList())
+        );
+        return buildToken(extraClaims, userDetails, 604800000); // 7 días
     }
 
     private String buildToken(Map<String, Object> extraClaims, UserDetails userDetails, long expiration) {
@@ -47,7 +57,7 @@ public class JwtService {
                 .subject(userDetails.getUsername())
                 .issuedAt(new Date(now))
                 .expiration(new Date(now + expiration))
-                .signWith(key) // ✅ ya no necesitas el algoritmo, se infiere del tipo de key
+                .signWith(key)
                 .compact();
     }
 

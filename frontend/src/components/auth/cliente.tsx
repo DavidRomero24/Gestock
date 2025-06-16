@@ -1,29 +1,65 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { Outlet, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ClientePage = () => {
+  const navigate = useNavigate();
+
+  // Datos iniciales de clientes
   const clientes = [
-    { id: 1, nombre: 'Pedro Picapiedra', fecha: '24/02/2021', entrego: 'Juan', ciudad: 'Ocaña', confirmado: true },
-    { id: 2, nombre: 'Marta López', fecha: '22/02/2021', entrego: 'Ana', ciudad: 'Ocaña', confirmado: false },
+    {
+      id: 1,
+      firstName: 'Pedro',
+      secondName: '',
+      lastName: 'Picapiedra',
+      secondLastName: '',
+      email: 'pedro@example.com',
+      phone: '123-456-7890',
+      address: 'Calle Principal, Ocaña',
+      fecha: '24/02/2021',
+      entrego: 'Juan',
+      ciudad: 'Ocaña',
+      confirmado: true,
+    },
+    {
+      id: 2,
+      firstName: 'Marta',
+      secondName: '',
+      lastName: 'López',
+      secondLastName: '',
+      email: 'marta@example.com',
+      phone: '987-654-3210',
+      address: 'Avenida Central, Ocaña',
+      fecha: '22/02/2021',
+      entrego: 'Ana',
+      ciudad: 'Ocaña',
+      confirmado: false,
+    },
   ];
+
+  // Estado para modo oscuro
   const [darkMode, setDarkMode] = useState(false);
   const theme = darkMode ? darkTheme : lightTheme;
   const toggleTheme = () => {
     setDarkMode(!darkMode);
   };
+
   return (
     <MainContent theme={theme}>
       <div className="inventory-dashboard">
-        <header>
+        <header onClick={() => navigate('/PageTwo')} style={{ cursor: 'pointer' }}>
           <img className="img_LogoGestockpagone" src="../src/assets/LogoGestock.png" alt="Logo de la empresa" />
           <h1>GESTOCK</h1>
         </header>
         <nav className="control-panel">
-          <img className="img_gestockpagone" src="../src/assets/Gestock.png" alt="Logo de la empresa" />
+          <div onClick={() => navigate('/PageTwo')} style={{ cursor: 'pointer' }}>
+            <img className="img_gestockpagone" src="../src/assets/Gestock.png" alt="Logo de la empresa" />
+          </div>
           <ul>
             <li><Link to="/PanelDeControlPage">Panel de control</Link></li>
-            <li><Link to="/ClientePage">Clientes</Link></li>
+            <li><Link to="/EmpleadoPage">Empleados</Link></li>
+            <li style={{ backgroundColor: '#eaeded' }}><Link to="/ClientePage">Clientes</Link></li>
             <li><Link to="/ProveedorPage">Proveedores</Link></li>
             <li><Link to="/ProductoPage">Productos</Link></li>
             <li><Link to="/ServicioPage">Servicios</Link></li>
@@ -56,32 +92,44 @@ const ClientePage = () => {
             </ActionButtons>
           </HeaderSection>
           <TableContainer>
-            <table>
-              <thead>
-                <tr>
-                  <th>Editar</th>
-                  <th>ID</th>
-                  <th>Nombre</th>
-                  <th>Fecha</th>
-                  <th>Entregó</th>
-                  <th>Ciudad</th>
-                  <th>Confirmado</th>
-                </tr>
-              </thead>
-              <tbody>
-                {clientes.map((cliente) => (
-                  <tr key={cliente.id}>
-                    <td><button className="edit-btn">Editar</button></td>
-                    <td>{cliente.id}</td>
-                    <td>{cliente.nombre}</td>
-                    <td>{cliente.fecha}</td>
-                    <td>{cliente.entrego}</td>
-                    <td>{cliente.ciudad}</td>
-                    <td>{cliente.confirmado ? 'Sí' : 'No'}</td>
+            <Card>
+              <div className="card-header">
+                <h2>Clientes</h2>
+                <button className="add-button">Agregar cliente</button>
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Primer Nombre</th>
+                    <th>Segundo Nombre</th>
+                    <th>Primer Apellido</th>
+                    <th>Segundo Apellido</th>
+                    <th>Email</th>
+                    <th>Número de Teléfono</th>
+                    <th>Dirección</th>
+                    <th>Acciones</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {clientes.map((cliente) => (
+                    <tr key={cliente.id}>
+                      <td>{cliente.id}</td>
+                      <td>{cliente.firstName}</td>
+                      <td>{cliente.secondName || '-'}</td>
+                      <td>{cliente.lastName}</td>
+                      <td>{cliente.secondLastName || '-'}</td>
+                      <td>{cliente.email}</td>
+                      <td>{cliente.phone}</td>
+                      <td>{cliente.address}</td>
+                      <td>
+                        <button className="edit-btn">Editar</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </Card>
           </TableContainer>
         </main>
       </div>
@@ -103,6 +151,7 @@ const ClientePage = () => {
     </MainContent>
   );
 };
+
 export default ClientePage;
 
 // Estilos
@@ -117,6 +166,9 @@ const MainContent = styled.div`
     display: flex;
     flex: 1; /* Hace que este elemento ocupe el espacio restante */
   }
+  a {
+    color: black;
+  }
   header {
     position: fixed;
     top: 0;
@@ -128,7 +180,7 @@ const MainContent = styled.div`
     align-items: center;
     justify-content: center;
     z-index: 10;
-    box-shadow: 0 4px rgba(0,0,0,0.1);
+    box-shadow: 0 4px rgba(0, 0, 0, 0.1);
   }
   header h1 {
     margin: 0;
@@ -144,7 +196,7 @@ const MainContent = styled.div`
     top: 0;
     left: 0;
     overflow-y: auto;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   }
   .control-panel h2 {
     font-size: 1.2rem;
@@ -176,50 +228,32 @@ const MainContent = styled.div`
     justify-content: start; /* Alinea el contenido al inicio */
     align-items: center; /* Centra horizontalmente */
   }
-  .stats-container {
-    display: flex;
-    grid-template-columns: repeat(2, 1fr); /* Cuadrícula de 2x2 como OSWA */
-    gap: 20px;
-    justify-content: center;
-  }
-  .stat-card {
-    background-color: ${(props) => props.theme.cardBackground};
-    padding: 20px;
-    text-align: center;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-  .stat-value {
-    font-size: 2rem;
-    font-weight: bold;
-  }
-  .data-section {
-    margin-bottom: 30px;
-    background-color: rgba(255, 255, 255, 0.05); /* un toque sutil */
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    margin: 60px;
-  }
-  .data-section h3 {
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 5px;
-  }
   table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
+    background-color: white; /* Ensure the table has a white background */
+    border: 1px solid #ccc; /* Add border to the table */
   }
   th, td {
     padding: 10px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border: 1px solid #ccc; /* Add border to cells */
   }
   th {
-    background-color: ${(props) => props.theme.cardBackground};
+    background-color: #f0f0f0; /* Light gray for header cells */
+    font-weight: bold; /* Make header text bold */
+    text-align: center; /* Center-align header text */
+    color: #0066cc; /* Header text color */
+  }
+  tr:nth-child(even) {
+    background-color: #f9f9f9; /* Alternate row background color */
   }
   tr:hover {
-    background-color: rgba(255,255,255,0.05);
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  .nombre-cell { /* Target the "Nombre" column cells */
+    background-color: white; /* Set background to white */
   }
   .switch {
     position: fixed;
@@ -270,7 +304,7 @@ const Dropdown = styled.div`
     display: none;
     position: absolute;
     background-color: white;
-    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
     padding: 10px;
     top: 100%;
     z-index: 1;
@@ -293,25 +327,44 @@ const Dropdown = styled.div`
 const TableContainer = styled.div`
   overflow-x: auto;
   max-width: 100%; /* Limitar el ancho máximo */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    th, td {
-      padding: 10px;
-      border: 1px solid #ccc;
-      text-align: left;
-    }
-    .edit-btn {
-      background: #28a745;
-      color: white;
-      border: none;
-      padding: 6px 10px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .edit-btn:hover {
-      background: #218838;
-    }
+`;
+
+const Card = styled.div`
+  background-color: white; /* Ensure the card has a white background */
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+`;
+
+const CardHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+
+const AddButton = styled.button`
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    background-color: #004c99;
+  }
+`;
+
+const EditButton = styled.button`
+  background-color: #000;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    background-color: #333;
   }
 `;
 

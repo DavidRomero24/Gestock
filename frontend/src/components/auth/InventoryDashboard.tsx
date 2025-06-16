@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import styled, { ThemeProvider } from "styled-components";
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom'; // Asegúrate de tener Link importado
+import { useNavigate } from 'react-router-dom';
 
 const InventoryDashboard = () => {
-
+  const navigate = useNavigate();
   const [darkMode, setDarkMode] = useState(false);
   const theme = darkMode ? darkTheme : lightTheme;
 
@@ -11,19 +12,24 @@ const InventoryDashboard = () => {
     setDarkMode(!darkMode);
   };
 
-
   return (
     <ThemeProvider theme={theme}>
       <StyledWrapper>
         <div className="inventory-dashboard">
+          {/* Aquí va el header con el evento onClick */}
           <header>
             <img className="img_LogoGestockpagone" src="../src/assets/LogoGestock.png" alt="Logo de la empresa" />
             <h1>GESTOCK</h1>
           </header>
+
+
           <nav className="control-panel">
-            <img className="img_gestockpagone" src="../src/assets/Gestock.png" alt="Logo de la empresa" />
+            <div onClick={() => navigate('/PageTwo')} style={{ cursor: 'pointer' }}>
+          <img className="img_gestockpagone" src="../src/assets/Gestock.png" alt="Logo de la empresa" />
+          </div>
             <ul>
               <li><Link to="/PanelDeControlPage">Panel de control</Link></li>
+              <li><Link to="/EmpleadoPage">Empleados</Link></li>
               <li><Link to="/ClientePage">Clientes</Link></li>
               <li><Link to="/ProveedorPage">Proveedores</Link></li>
               <li><Link to="/ProductoPage">Productos</Link></li>
@@ -32,40 +38,36 @@ const InventoryDashboard = () => {
               <li><Link to="/SuministroPage">Suministros</Link></li>
             </ul>
           </nav>
+
           <main className="dashboard-content">
             <div className="container-one">
-          <div className="book-one">
-            <div className="info-one">
-              <h1 className="img_LogoGestock-one">GESTOCK</h1>
-              <img className="img_LogoGestock-one" src="../src/assets/LogoGestock.png" alt="Logo de la empresa" />
-
+              {/* Contenedor principal centrado */}
+              <div className="centered-card">
+                <h1>Vive una experiencia única con</h1>
+                {/* Contenedor para centrar el logotipo */}
+                <div className="logo-container">
+                  <img className="img_gestock-one" src="../src/assets/Gestock.png" alt="Logo de la empresa" />
+                </div>
+                <h3>¡El mejor sistema para tu empresa!</h3>
+              </div>
             </div>
-            
-            <div className="cover-one">
-              <h1>Vive una experiencia única con</h1>
-              <img className="img_gestock-one" src="../src/assets/Gestock.png" alt="Logo de la empresa" />
-              <h3>¡El mejor sistema para tu empresa!</h3>
-            </div>
-          </div>
-        </div>
           </main>
         </div>
+
         <label className="switch">
-          <label className="switch">
-            <input
-              type="checkbox"
-              checked={darkMode}
-              onChange={toggleTheme}
-            />
-            <span className="slider">
-              <div className="star star_1" />
-              <div className="star star_2" />
-              <div className="star star_3" />
-              <svg className="cloud" viewBox="0 0 16 16">
-                <path fill="#fff" d="m391.84 540.91c-.421-.329-.949-.524-1.523-.524-1.351 0-2.451 1.084-2.485 2.435-1.395.526-2.388 1.88-2.388 3.466 0 1.874 1.385 3.423 3.182 3.667v.034h12.73v-.006c1.775-.104 3.182-1.584 3.182-3.395 0-1.747-1.309-3.186-2.994-3.379.007-.106.011-.214.011-.322 0-2.707-2.271-4.901-5.072-4.901-2.073 0-3.856 1.202-4.643 2.925" />
-              </svg>
-            </span>
-          </label>
+          <input
+            type="checkbox"
+            checked={darkMode}
+            onChange={toggleTheme}
+          />
+          <span className="slider">
+            <div className="star star_1" />
+            <div className="star star_2" />
+            <div className="star star_3" />
+            <svg className="cloud" viewBox="0 0 16 16">
+              <path fill="#fff" d="m391.84 540.91c-.421-.329-.949-.524-1.523-.524-1.351 0-2.451 1.084-2.485 2.435-1.395.526-2.388 1.88-2.388 3.466 0 1.874 1.385 3.423 3.182 3.667v.034h12.73v-.006c1.775-.104 3.182-1.584 3.182-3.395 0-1.747-1.309-3.186-2.994-3.379.007-.106.011-.214.011-.322 0-2.707-2.271-4.901-5.072-4.901-2.073 0-3.856 1.202-4.643 2.925" />
+            </svg>
+          </span>
         </label>
       </StyledWrapper>
     </ThemeProvider>
@@ -84,7 +86,10 @@ const StyledWrapper = styled.div`
   .inventory-dashboard {
     display: flex;
     flex: 1;
+  }
 
+  a {
+    color: black;
   }
 
   header {
@@ -98,13 +103,14 @@ const StyledWrapper = styled.div`
     align-items: center;
     justify-content: center;
     z-index: 10;
-    box-shadow: 0 4px rgba(0,0,0,0.1);
+    box-shadow: 0 4px rgba(0, 0, 0, 0.1);
   }
-    header h1{
-      margin: 0;
-      font-size: 1.8rem;
-      cursor: default;
-    }
+
+  header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    cursor: default;
+  }
 
   .control-panel {
     width: 220px;
@@ -115,7 +121,7 @@ const StyledWrapper = styled.div`
     top: 0;
     left: 0;
     overflow-y: auto;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   }
 
   .control-panel h2 {
@@ -136,20 +142,20 @@ const StyledWrapper = styled.div`
   }
 
   .control-panel li:hover {
-    background-color: ${(props) => props.theme.background};
+    background-color: ${(props) => props.theme.hoverBackground};
     color: ${(props) => props.theme.text};
   }
 
   .dashboard-content {
     margin-left: 220px;
-  padding: 80px 640px;
-  width: calc(100% - 220px);
-  box-sizing: border-box;
-  min-height: 100vh; /* Asegura altura completa */
-  background: ${(props) => props.theme.background};
-  display: flex;
-  justify-content: center;
-  align-items: start;
+    padding: 80px 850px;
+    width: calc(100% - 220px);
+    box-sizing: border-box;
+    min-height: 100vh; /* Asegura altura completa */
+    background: ${(props) => props.theme.background};
+    display: flex;
+    justify-content: center;
+    align-items: start;
   }
 
   .stats-container {
@@ -157,7 +163,6 @@ const StyledWrapper = styled.div`
     grid-template-columns: repeat(2, 1fr); /* Cuadrícula de 2x2 como OSWA */
     gap: 20px;
     justify-content: center;
-
   }
 
   .stat-card {
@@ -165,7 +170,7 @@ const StyledWrapper = styled.div`
     padding: 20px;
     text-align: center;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   .stat-value {
@@ -175,11 +180,11 @@ const StyledWrapper = styled.div`
 
   .data-section {
     margin-bottom: 30px;
-  background-color: rgba(255, 255, 255, 0.05); /* un toque sutil */
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  margin: 60px
+    background-color: rgba(255, 255, 255, 0.05); /* un toque sutil */
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin: 60px;
   }
 
   .data-section h3 {
@@ -193,7 +198,8 @@ const StyledWrapper = styled.div`
     margin-top: 10px;
   }
 
-  th, td {
+  th,
+  td {
     padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
@@ -204,7 +210,7 @@ const StyledWrapper = styled.div`
   }
 
   tr:hover {
-    background-color: rgba(255,255,255,0.05);
+    background-color: rgba(255, 255, 255, 0.05);
   }
 
   .switch {
@@ -214,33 +220,30 @@ const StyledWrapper = styled.div`
     z-index: 100;
   }
 
-  .control-paneling{
-    
+  .control-paneling {
   }
 
-  .card-section{
+  .card-section {
     display: flex;
   }
-  
-  .img_gestockpagone{
+
+  .img_gestockpagone {
     width: 200px;
     height: 70px;
     cursor: pointer;
   }
-  
-  
-  .img_LogoGestockpagone{
-    width: 60px;
-    height: 60px
-  }
-    
-  
-  .control-panel li:hover {
-    background-color: ${(props) => props.theme.hoverBackground}; 
-    color: ${(props) => props.theme.text}; 
-}
 
-.container-one {
+  .img_LogoGestockpagone {
+    width: 60px;
+    height: 60px;
+  }
+
+  .control-panel li:hover {
+    background-color: ${(props) => props.theme.hoverBackground};
+    color: ${(props) => props.theme.text};
+  }
+
+  .container-one {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -262,15 +265,13 @@ const StyledWrapper = styled.div`
     color: #000;
   }
 
-  .info-one{
+  .info-one {
     display: block;
-    
   }
 
-   .img_LogoGestock-one{
+  .img_LogoGestock-one {
     width: 35%;
     height: auto;
-    // margin-top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -302,9 +303,27 @@ const StyledWrapper = styled.div`
     margin-left: auto;
     margin-right: auto;
   }
+
+  /* Estilos adicionales para centrar el contenido */
+  .centered-card {
+    position: absolute;
+    top: 50%;
+    left: 60%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0; /* Espacio arriba y abajo del logo */
+  }
 `;
-
-
 
 const lightTheme = {
   background: 'radial-gradient(circle, rgba(137, 186, 250, 1) 0%, rgba(79, 108, 255, 1) 100%)',
