@@ -5,27 +5,56 @@ import { useNavigate } from 'react-router-dom';
 
 const ClientePage = () => {
   const navigate = useNavigate();
+
+  // Datos iniciales de clientes
   const clientes = [
-    { id: 1, nombre: 'Pedro Picapiedra', fecha: '24/02/2021', entrego: 'Juan', ciudad: 'Ocaña', confirmado: true },
-    { id: 2, nombre: 'Marta López', fecha: '22/02/2021', entrego: 'Ana', ciudad: 'Ocaña', confirmado: false },
+    {
+      id: 1,
+      firstName: 'Pedro',
+      secondName: '',
+      lastName: 'Picapiedra',
+      secondLastName: '',
+      email: 'pedro@example.com',
+      phone: '123-456-7890',
+      address: 'Calle Principal, Ocaña',
+      fecha: '24/02/2021',
+      entrego: 'Juan',
+      ciudad: 'Ocaña',
+      confirmado: true,
+    },
+    {
+      id: 2,
+      firstName: 'Marta',
+      secondName: '',
+      lastName: 'López',
+      secondLastName: '',
+      email: 'marta@example.com',
+      phone: '987-654-3210',
+      address: 'Avenida Central, Ocaña',
+      fecha: '22/02/2021',
+      entrego: 'Ana',
+      ciudad: 'Ocaña',
+      confirmado: false,
+    },
   ];
+
+  // Estado para modo oscuro
   const [darkMode, setDarkMode] = useState(false);
   const theme = darkMode ? darkTheme : lightTheme;
   const toggleTheme = () => {
     setDarkMode(!darkMode);
   };
+
   return (
     <MainContent theme={theme}>
       <div className="inventory-dashboard">
-
         <header onClick={() => navigate('/PageTwo')} style={{ cursor: 'pointer' }}>
           <img className="img_LogoGestockpagone" src="../src/assets/LogoGestock.png" alt="Logo de la empresa" />
           <h1>GESTOCK</h1>
         </header>
-
         <nav className="control-panel">
           <div onClick={() => navigate('/PageTwo')} style={{ cursor: 'pointer' }}>
-          <img className="img_gestockpagone" src="../src/assets/Gestock.png" alt="Logo de la empresa" />
+            <img className="img_gestockpagone" src="../src/assets/Gestock.png" alt="Logo de la empresa" />
           </div>
           <ul>
             <li><Link to="/PanelDeControlPage">Panel de control</Link></li>
@@ -71,20 +100,28 @@ const ClientePage = () => {
               <table>
                 <thead>
                   <tr>
-                    <th>Nombre</th>
-                    <th>Fecha</th>
-                    <th>Ciudad</th>
-                    <th>Confirmado</th>
+                    <th>ID</th>
+                    <th>Primer Nombre</th>
+                    <th>Segundo Nombre</th>
+                    <th>Primer Apellido</th>
+                    <th>Segundo Apellido</th>
+                    <th>Email</th>
+                    <th>Número de Teléfono</th>
+                    <th>Dirección</th>
                     <th>Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
                   {clientes.map((cliente) => (
                     <tr key={cliente.id}>
-                      <td>{cliente.nombre}</td>
-                      <td>{cliente.fecha}</td>
-                      <td>{cliente.ciudad}</td>
-                      <td>{cliente.confirmado ? 'Sí' : 'No'}</td>
+                      <td>{cliente.id}</td>
+                      <td>{cliente.firstName}</td>
+                      <td>{cliente.secondName || '-'}</td>
+                      <td>{cliente.lastName}</td>
+                      <td>{cliente.secondLastName || '-'}</td>
+                      <td>{cliente.email}</td>
+                      <td>{cliente.phone}</td>
+                      <td>{cliente.address}</td>
                       <td>
                         <button className="edit-btn">Editar</button>
                       </td>
@@ -114,6 +151,7 @@ const ClientePage = () => {
     </MainContent>
   );
 };
+
 export default ClientePage;
 
 // Estilos
@@ -128,10 +166,9 @@ const MainContent = styled.div`
     display: flex;
     flex: 1; /* Hace que este elemento ocupe el espacio restante */
   }
-
-    a{
-    color:black
-    }
+  a {
+    color: black;
+  }
   header {
     position: fixed;
     top: 0;
@@ -143,7 +180,7 @@ const MainContent = styled.div`
     align-items: center;
     justify-content: center;
     z-index: 10;
-    box-shadow: 0 4px rgba(0,0,0,0.1);
+    box-shadow: 0 4px rgba(0, 0, 0, 0.1);
   }
   header h1 {
     margin: 0;
@@ -159,7 +196,7 @@ const MainContent = styled.div`
     top: 0;
     left: 0;
     overflow-y: auto;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   }
   .control-panel h2 {
     font-size: 1.2rem;
@@ -191,35 +228,6 @@ const MainContent = styled.div`
     justify-content: start; /* Alinea el contenido al inicio */
     align-items: center; /* Centra horizontalmente */
   }
-  .stats-container {
-    display: flex;
-    grid-template-columns: repeat(2, 1fr); /* Cuadrícula de 2x2 como OSWA */
-    gap: 20px;
-    justify-content: center;
-  }
-  .stat-card {
-    background-color: ${(props) => props.theme.cardBackground};
-    padding: 20px;
-    text-align: center;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-  .stat-value {
-    font-size: 2rem;
-    font-weight: bold;
-  }
-  .data-section {
-    margin-bottom: 30px;
-    background-color: rgba(255, 255, 255, 0.05); /* un toque sutil */
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    margin: 60px;
-  }
-  .data-section h3 {
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 5px;
-  }
   table {
     width: 100%;
     border-collapse: collapse;
@@ -242,7 +250,7 @@ const MainContent = styled.div`
     background-color: #f9f9f9; /* Alternate row background color */
   }
   tr:hover {
-    background-color: rgba(255,255,255,0.05);
+    background-color: rgba(255, 255, 255, 0.05);
   }
   .nombre-cell { /* Target the "Nombre" column cells */
     background-color: white; /* Set background to white */
@@ -296,7 +304,7 @@ const Dropdown = styled.div`
     display: none;
     position: absolute;
     background-color: white;
-    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
     padding: 10px;
     top: 100%;
     z-index: 1;

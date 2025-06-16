@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 const ProveedorPage = () => {
-    const navigate = useNavigate();
+    
     // Estado inicial de los proveedores
     const [proveedores, setProveedores] = useState([
         { id: 1, nombre: 'Empresa A', fecha: '2023-09-01', ciudad: 'Bogotá', confirmado: true },

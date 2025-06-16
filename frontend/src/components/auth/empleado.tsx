@@ -1,93 +1,175 @@
 import { useState } from 'react';
-import styled, { ThemeProvider } from "styled-components";
+import styled, { ThemeProvider } from 'styled-components';
 import { Outlet, Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+
 const EmpleadoPage = () => {
   const navigate = useNavigate();
-  // Estado inicial de los empleados
+
+  // Estado inicial de empleados con ID
   const [employees, setEmployees] = useState([
     {
-      name: "Adriana Santiago",
+      id: 1,
+      firstName: "Adriana",
+      secondName: "",
+      lastName: "Santiago",
+      secondLastName: "",
       role: "HR technician - Human resources",
       manager: "Alvaro De Las Cuevas",
-      start: "May 20, 2020",
-      end: "",
+      startDate: "May 20, 2020",
+      endDate: "",
+      birthDate: "1990-05-15",
+      email: "adriana@example.com",
+      phone: "123-456-7890",
+      salary: 50000,
+      employeeType: "Full-time",
     },
     {
-      name: "Arturo Zamora",
+      id: 2,
+      firstName: "Arturo",
+      secondName: "",
+      lastName: "Zamora",
+      secondLastName: "",
       role: "Developer - Development and Operations",
       manager: "Pedro Rodríguez",
-      start: "Jan 14, 2018",
-      end: "",
+      startDate: "Jan 14, 2018",
+      endDate: "",
+      birthDate: "1988-02-10",
+      email: "arturo@example.com",
+      phone: "987-654-3210",
+      salary: 60000,
+      employeeType: "Full-time",
     },
     {
-      name: "Aida Barrera",
+      id: 3,
+      firstName: "Aida",
+      secondName: "",
+      lastName: "Barrera",
+      secondLastName: "",
       role: "Developer - Development and Operations",
       manager: "Pedro Rodríguez",
-      start: "Nov 04, 2016",
-      end: "",
+      startDate: "Nov 04, 2016",
+      endDate: "",
+      birthDate: "1985-07-20",
+      email: "aida@example.com",
+      phone: "555-555-5555",
+      salary: 55000,
+      employeeType: "Full-time",
     },
     {
-      name: "Ana María Dominguín",
+      id: 4,
+      firstName: "Ana María",
+      secondName: "",
+      lastName: "Domingún",
+      secondLastName: "",
       role: "Recruiter - HR Recruitment",
       manager: "Ainara Sánchez",
-      start: "May 25, 2018",
-      end: "",
+      startDate: "May 25, 2018",
+      endDate: "",
+      birthDate: "1992-03-15",
+      email: "anamaria@example.com",
+      phone: "444-444-4444",
+      salary: 52000,
+      employeeType: "Full-time",
     },
   ]);
 
-  // Estado para el modo oscuro
+  // Estado para modo oscuro
   const [darkMode, setDarkMode] = useState(false);
   const theme = darkMode ? darkTheme : lightTheme;
   const toggleTheme = () => {
     setDarkMode(!darkMode);
   };
 
-  // Estado para el modal de agregar empleado
+  // Estados para modales
   const [showAddModal, setShowAddModal] = useState(false);
   const [newEmployee, setNewEmployee] = useState({
-    name: "",
+    id: null,
+    firstName: "",
+    secondName: "",
+    lastName: "",
+    secondLastName: "",
     role: "",
     manager: "",
-    start: "",
-    end: "",
+    startDate: "",
+    endDate: "",
+    birthDate: "",
+    email: "",
+    phone: "",
+    salary: "",
+    employeeType: "",
   });
-
-  // Estado para el modal de editar empleado
   const [showEditModal, setShowEditModal] = useState(false);
   const [editingEmployee, setEditingEmployee] = useState(null);
 
-  // Estado para el modal de ver detalles del empleado
-  const [showViewModal, setShowViewModal] = useState(false);
-  const [selectedEmployee, setSelectedEmployee] = useState(null);
-
-  // Manejar cambios en el formulario de nuevo empleado
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewEmployee({ ...newEmployee, [name]: value });
   };
 
-  // Agregar un nuevo empleado
   const handleAddEmployee = () => {
-    if (!newEmployee.name || !newEmployee.role || !newEmployee.manager || !newEmployee.start) {
+    if (
+      !newEmployee.firstName ||
+      !newEmployee.lastName ||
+      !newEmployee.role ||
+      !newEmployee.manager ||
+      !newEmployee.startDate ||
+      !newEmployee.birthDate ||
+      !newEmployee.email ||
+      !newEmployee.phone ||
+      !newEmployee.salary ||
+      !newEmployee.employeeType
+    ) {
       alert("Por favor, complete todos los campos obligatorios.");
       return;
     }
-    setEmployees([...employees, newEmployee]);
-    setShowAddModal(false); // Cerrar el modal
-    setNewEmployee({ name: "", role: "", manager: "", start: "", end: "" }); // Reiniciar el formulario
+
+    const newId = employees.length > 0 ? Math.max(...employees.map(e => e.id)) + 1 : 1;
+
+    const newEmp = {
+      id: newId,
+      ...newEmployee
+    };
+
+    setEmployees([...employees, newEmp]);
+    setShowAddModal(false);
+    setNewEmployee({
+      id: null,
+      firstName: "",
+      secondName: "",
+      lastName: "",
+      secondLastName: "",
+      role: "",
+      manager: "",
+      startDate: "",
+      endDate: "",
+      birthDate: "",
+      email: "",
+      phone: "",
+      salary: "",
+      employeeType: "",
+    });
   };
 
-  // Editar un empleado existente
   const handleEditEmployee = (employee) => {
     setEditingEmployee(employee);
     setShowEditModal(true);
-    setNewEmployee({ ...employee }); // Prellenar el formulario con los datos actuales
+    setNewEmployee({ ...employee });
   };
 
-  // Guardar cambios al editar un empleado
   const handleUpdateEmployee = () => {
-    if (!newEmployee.name || !newEmployee.role || !newEmployee.manager || !newEmployee.start) {
+    if (
+      !newEmployee.firstName ||
+      !newEmployee.lastName ||
+      !newEmployee.role ||
+      !newEmployee.manager ||
+      !newEmployee.startDate ||
+      !newEmployee.birthDate ||
+      !newEmployee.email ||
+      !newEmployee.phone ||
+      !newEmployee.salary ||
+      !newEmployee.employeeType
+    ) {
       alert("Por favor, complete todos los campos obligatorios.");
       return;
     }
@@ -97,13 +179,22 @@ const EmpleadoPage = () => {
     setEmployees(updatedEmployees);
     setShowEditModal(false);
     setEditingEmployee(null);
-    setNewEmployee({ name: "", role: "", manager: "", start: "", end: "" });
-  };
-
-  // Ver detalles de un empleado
-  const handleViewEmployee = (employee) => {
-    setSelectedEmployee(employee);
-    setShowViewModal(true);
+    setNewEmployee({
+      id: null,
+      firstName: "",
+      secondName: "",
+      lastName: "",
+      secondLastName: "",
+      role: "",
+      manager: "",
+      startDate: "",
+      endDate: "",
+      birthDate: "",
+      email: "",
+      phone: "",
+      salary: "",
+      employeeType: "",
+    });
   };
 
   return (
@@ -145,31 +236,32 @@ const EmpleadoPage = () => {
                 <table>
                   <thead>
                     <tr>
-                      <th></th>
-                      <th>Nombre</th>
-                      <th>Categoría</th>
-                      <th>Jefe directo</th>
-                      <th>Fecha de inicio</th>
-                      <th>Fecha de fin</th>
-                      <th>Acceso</th>
+                      <th>ID</th>
+                      <th>Primer Nombre</th>
+                      <th>Segundo Nombre</th>
+                      <th>Primer Apellido</th>
+                      <th>Segundo Apellido</th>
+                      <th>Fecha de Nacimiento</th>
+                      <th>Email</th>
+                      <th>Número de Teléfono</th>
+                      <th>Salario</th>
+                      <th>Tipo de Empleado</th>
                       <th>Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
                     {employees.map((emp, idx) => (
                       <tr key={idx}>
-                        <td><input type="checkbox" /></td>
-                        <td><span className="name-link" onClick={() => handleViewEmployee(emp)}>{emp.name}</span></td>
-                        <td>{emp.role}</td>
-                        <td>
-                          <div className="manager">
-                            <div className="avatar"></div>
-                            {emp.manager}
-                          </div>
-                        </td>
-                        <td>{emp.start}</td>
-                        <td>{emp.end || ""}</td>
-                        <td><div className="status-dot"></div></td>
+                        <td>{emp.id}</td>
+                        <td>{emp.firstName}</td>
+                        <td>{emp.secondName || "-"}</td>
+                        <td>{emp.lastName}</td>
+                        <td>{emp.secondLastName || "-"}</td>
+                        <td>{emp.birthDate}</td>
+                        <td>{emp.email}</td>
+                        <td>{emp.phone}</td>
+                        <td>${emp.salary}</td>
+                        <td>{emp.employeeType}</td>
                         <td>
                           <button className="edit-btn" onClick={() => handleEditEmployee(emp)}>Editar</button>
                         </td>
@@ -188,16 +280,43 @@ const EmpleadoPage = () => {
             <div className="modal">
               <h2>Agregar Nuevo Empleado</h2>
               <form>
-                <label htmlFor="name">Nombre:</label>
+                <label htmlFor="id">ID:</label>
+                <input type="text" id="id" value={newEmployee.id || ""} disabled />
+
+                <label htmlFor="firstName">Primer Nombre:</label>
                 <input
                   type="text"
-                  id="name"
-                  name="name"
-                  value={newEmployee.name}
+                  id="firstName"
+                  name="firstName"
+                  value={newEmployee.firstName}
                   onChange={handleInputChange}
                   required
                 />
-
+                <label htmlFor="secondName">Segundo Nombre:</label>
+                <input
+                  type="text"
+                  id="secondName"
+                  name="secondName"
+                  value={newEmployee.secondName}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="lastName">Primer Apellido:</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  value={newEmployee.lastName}
+                  onChange={handleInputChange}
+                  required
+                />
+                <label htmlFor="secondLastName">Segundo Apellido:</label>
+                <input
+                  type="text"
+                  id="secondLastName"
+                  name="secondLastName"
+                  value={newEmployee.secondLastName}
+                  onChange={handleInputChange}
+                />
                 <label htmlFor="role">Categoría:</label>
                 <input
                   type="text"
@@ -207,7 +326,6 @@ const EmpleadoPage = () => {
                   onChange={handleInputChange}
                   required
                 />
-
                 <label htmlFor="manager">Jefe Directo:</label>
                 <input
                   type="text"
@@ -217,26 +335,68 @@ const EmpleadoPage = () => {
                   onChange={handleInputChange}
                   required
                 />
-
-                <label htmlFor="start">Fecha de Inicio:</label>
+                <label htmlFor="startDate">Fecha de Inicio:</label>
                 <input
                   type="date"
-                  id="start"
-                  name="start"
-                  value={newEmployee.start}
+                  id="startDate"
+                  name="startDate"
+                  value={newEmployee.startDate}
                   onChange={handleInputChange}
                   required
                 />
-
-                <label htmlFor="end">Fecha de Fin:</label>
+                <label htmlFor="endDate">Fecha de Fin:</label>
                 <input
                   type="date"
-                  id="end"
-                  name="end"
-                  value={newEmployee.end}
+                  id="endDate"
+                  name="endDate"
+                  value={newEmployee.endDate}
                   onChange={handleInputChange}
                 />
-
+                <label htmlFor="birthDate">Fecha de Nacimiento:</label>
+                <input
+                  type="date"
+                  id="birthDate"
+                  name="birthDate"
+                  value={newEmployee.birthDate}
+                  onChange={handleInputChange}
+                  required
+                />
+                <label htmlFor="email">Email:</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={newEmployee.email}
+                  onChange={handleInputChange}
+                  required
+                />
+                <label htmlFor="phone">Número de Teléfono:</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value={newEmployee.phone}
+                  onChange={handleInputChange}
+                  required
+                />
+                <label htmlFor="salary">Salario:</label>
+                <input
+                  type="number"
+                  id="salary"
+                  name="salary"
+                  value={newEmployee.salary}
+                  onChange={handleInputChange}
+                  required
+                />
+                <label htmlFor="employeeType">Tipo de Empleado:</label>
+                <input
+                  type="text"
+                  id="employeeType"
+                  name="employeeType"
+                  value={newEmployee.employeeType}
+                  onChange={handleInputChange}
+                  required
+                />
                 <button type="button" onClick={handleAddEmployee}>Guardar</button>
                 <button type="button" onClick={() => setShowAddModal(false)}>Cancelar</button>
               </form>
@@ -250,16 +410,43 @@ const EmpleadoPage = () => {
             <div className="modal">
               <h2>Editar Empleado</h2>
               <form>
-                <label htmlFor="name">Nombre:</label>
+                <label htmlFor="id">ID:</label>
+                <input type="text" id="id" value={newEmployee.id || ""} disabled />
+
+                <label htmlFor="firstName">Primer Nombre:</label>
                 <input
                   type="text"
-                  id="name"
-                  name="name"
-                  value={newEmployee.name}
+                  id="firstName"
+                  name="firstName"
+                  value={newEmployee.firstName}
                   onChange={handleInputChange}
                   required
                 />
-
+                <label htmlFor="secondName">Segundo Nombre:</label>
+                <input
+                  type="text"
+                  id="secondName"
+                  name="secondName"
+                  value={newEmployee.secondName}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="lastName">Primer Apellido:</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  value={newEmployee.lastName}
+                  onChange={handleInputChange}
+                  required
+                />
+                <label htmlFor="secondLastName">Segundo Apellido:</label>
+                <input
+                  type="text"
+                  id="secondLastName"
+                  name="secondLastName"
+                  value={newEmployee.secondLastName}
+                  onChange={handleInputChange}
+                />
                 <label htmlFor="role">Categoría:</label>
                 <input
                   type="text"
@@ -269,7 +456,6 @@ const EmpleadoPage = () => {
                   onChange={handleInputChange}
                   required
                 />
-
                 <label htmlFor="manager">Jefe Directo:</label>
                 <input
                   type="text"
@@ -279,44 +465,71 @@ const EmpleadoPage = () => {
                   onChange={handleInputChange}
                   required
                 />
-
-                <label htmlFor="start">Fecha de Inicio:</label>
+                <label htmlFor="startDate">Fecha de Inicio:</label>
                 <input
                   type="date"
-                  id="start"
-                  name="start"
-                  value={newEmployee.start}
+                  id="startDate"
+                  name="startDate"
+                  value={newEmployee.startDate}
                   onChange={handleInputChange}
                   required
                 />
-
-                <label htmlFor="end">Fecha de Fin:</label>
+                <label htmlFor="endDate">Fecha de Fin:</label>
                 <input
                   type="date"
-                  id="end"
-                  name="end"
-                  value={newEmployee.end}
+                  id="endDate"
+                  name="endDate"
+                  value={newEmployee.endDate}
                   onChange={handleInputChange}
                 />
-
+                <label htmlFor="birthDate">Fecha de Nacimiento:</label>
+                <input
+                  type="date"
+                  id="birthDate"
+                  name="birthDate"
+                  value={newEmployee.birthDate}
+                  onChange={handleInputChange}
+                  required
+                />
+                <label htmlFor="email">Email:</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={newEmployee.email}
+                  onChange={handleInputChange}
+                  required
+                />
+                <label htmlFor="phone">Número de Teléfono:</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value={newEmployee.phone}
+                  onChange={handleInputChange}
+                  required
+                />
+                <label htmlFor="salary">Salario:</label>
+                <input
+                  type="number"
+                  id="salary"
+                  name="salary"
+                  value={newEmployee.salary}
+                  onChange={handleInputChange}
+                  required
+                />
+                <label htmlFor="employeeType">Tipo de Empleado:</label>
+                <input
+                  type="text"
+                  id="employeeType"
+                  name="employeeType"
+                  value={newEmployee.employeeType}
+                  onChange={handleInputChange}
+                  required
+                />
                 <button type="button" onClick={handleUpdateEmployee}>Guardar Cambios</button>
                 <button type="button" onClick={() => setShowEditModal(false)}>Cancelar</button>
               </form>
-            </div>
-          </div>
-        )}
-
-        {/* Modal para ver detalles del empleado */}
-        {showViewModal && (
-          <div className="modal-overlay">
-            <div className="modal">
-              <h2>Detalles del Empleado</h2>
-              <p><strong>Nombre:</strong> {selectedEmployee?.name}</p>
-              <p><strong>Categoría:</strong> {selectedEmployee?.role}</p>
-              <p><strong>Jefe Directo:</strong> {selectedEmployee?.manager}</p>
-              <p><strong>Fecha de Inicio:</strong> {selectedEmployee?.start}</p>
-              <p><strong>Fecha de Fin:</strong> {selectedEmployee?.end || "N/A"}</p>
-              <button type="button" onClick={() => setShowViewModal(false)}>Cerrar</button>
             </div>
           </div>
         )}
@@ -415,7 +628,7 @@ const StyledWrapper = styled.div`
 
   .dashboard-content {
     margin-left: 220px;
-    padding: 80px 500px;
+    padding: 80px 300px;
     width: calc(100% - 220px);
     box-sizing: border-box;
     min-height: 100vh;
@@ -423,152 +636,6 @@ const StyledWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: start;
-  }
-
-  .stats-container {
-    display: flex;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    justify-content: center;
-  }
-
-  .stat-card {
-    background-color: ${(props) => props.theme.cardBackground};
-    padding: 20px;
-    text-align: center;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-
-  .stat-value {
-    font-size: 2rem;
-    font-weight: bold;
-  }
-
-  .data-section {
-    margin-bottom: 30px;
-    background-color: rgba(255, 255, 255, 0.05);
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    margin: 60px;
-  }
-
-  .data-section h3 {
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 5px;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-  }
-
-  th,
-  td {
-    padding: 10px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-
-  th {
-    background-color: ${(props) => props.theme.cardBackground};
-  }
-
-  tr:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-  }
-
-  .switch {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 100;
-  }
-
-  .control-paneling {
-  }
-
-  .card-section {
-    display: flex;
-  }
-
-  .img_gestockpagone {
-    width: 200px;
-    height: 70px;
-    cursor: pointer;
-  }
-
-  .img_LogoGestockpagone {
-    width: 60px;
-    height: 60px;
-  }
-
-  .control-panel li:hover {
-    background-color: ${(props) => props.theme.hoverBackground};
-    color: ${(props) => props.theme.text};
-  }
-
-  .container-one {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .book-one {
-    position: relative;
-    border-radius: 10px;
-    width: 420px;
-    height: 500px;
-    background-color: white;
-    box-shadow: 1px 1px 12px #000;
-    transform: preserve-3d;
-    perspective: 2000px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #000;
-  }
-
-  .info-one {
-    display: block;
-  }
-
-  .img_LogoGestock-one {
-    width: 35%;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .cover-one {
-    top: 0;
-    position: absolute;
-    background-color: white;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.5s;
-    transform-origin: 0;
-    box-shadow: 1px 1px 12px #000;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .img_gestock-one {
-    width: auto;
-    height: 28%;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
   }
 
   /* Estilos para los modales */
@@ -582,6 +649,7 @@ const StyledWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 9999;
   }
 
   .modal {
@@ -590,6 +658,8 @@ const StyledWrapper = styled.div`
     border-radius: 8px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     width: 400px;
+    max-height: 90vh;
+    overflow-y: auto;
     text-align: center;
   }
 
@@ -616,6 +686,17 @@ const StyledWrapper = styled.div`
     border: none;
     border-radius: 4px;
     cursor: pointer;
+  }
+
+  .img_gestockpagone {
+    width: 200px;
+    height: 70px;
+    cursor: pointer;
+  }
+
+  .img_LogoGestockpagone {
+    width: 60px;
+    height: 60px;
   }
 `;
 
