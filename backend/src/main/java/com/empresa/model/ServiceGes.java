@@ -6,8 +6,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
-@Table(name = "SERVICE", schema = "GESTOCK")
-public class Service implements Serializable {
+@Table(name = "SERVICEGES", schema = "GESTOCK")
+public class ServiceGes implements Serializable {
 
     @Id
     @Column(name = "ID_Service", length = 15, nullable = false)
@@ -28,7 +28,7 @@ public class Service implements Serializable {
     private List<ServiceDetail> serviceDetails;
 
     // Constructor
-    public Service() {
+    public ServiceGes() {
     }
 
     // Getters y Setters

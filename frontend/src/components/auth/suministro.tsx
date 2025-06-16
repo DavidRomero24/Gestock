@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import styled, { ThemeProvider } from "styled-components";
 import { Outlet, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const InventoryDashboard = () => {
-
+  const navigate = useNavigate();
     const [darkMode, setDarkMode] = useState(false);
     const theme = darkMode ? darkTheme : lightTheme;
 
@@ -21,7 +22,9 @@ const InventoryDashboard = () => {
                         <h1>GESTOCK</h1>
                     </header>
                     <nav className="control-panel">
-                        <img className="img_gestockpagone" src="../src/assets/Gestock.png" alt="Logo de la empresa" />
+                        <div onClick={() => navigate('/PageTwo')} style={{ cursor: 'pointer' }}>
+          <img className="img_gestockpagone" src="../src/assets/Gestock.png" alt="Logo de la empresa" />
+          </div>
                         <ul>
                             <li><Link to="/PanelDeControlPage">Panel de control</Link></li>
                             <li><Link to="/EmpleadoPage">Empleados</Link></li>

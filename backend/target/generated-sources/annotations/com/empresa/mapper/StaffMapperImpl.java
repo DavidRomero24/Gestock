@@ -3,12 +3,13 @@ package com.empresa.mapper;
 import com.empresa.dto.request.StaffRequestDTO;
 import com.empresa.dto.response.StaffResponseDTO;
 import com.empresa.model.Staff;
+import java.math.BigDecimal;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-12T09:00:47-0500",
+    date = "2025-06-15T18:15:38-0500",
     comments = "version: 1.6.1, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
 )
 @Component
@@ -30,7 +31,9 @@ public class StaffMapperImpl implements StaffMapper {
         staff.setDateBirth( dto.getDateBirth() );
         staff.setEmail( dto.getEmail() );
         staff.setNumberPhone( dto.getNumberPhone() );
-        staff.setSalary( dto.getSalary() );
+        if ( dto.getSalary() != null ) {
+            staff.setSalary( BigDecimal.valueOf( dto.getSalary() ) );
+        }
         staff.setTypeStaff( dto.getTypeStaff() );
         staff.setHireDate( dto.getHireDate() );
 
@@ -56,7 +59,9 @@ public class StaffMapperImpl implements StaffMapper {
         staffResponseDTO.name1( staff.getName1() );
         staffResponseDTO.name2( staff.getName2() );
         staffResponseDTO.numberPhone( staff.getNumberPhone() );
-        staffResponseDTO.salary( staff.getSalary() );
+        if ( staff.getSalary() != null ) {
+            staffResponseDTO.salary( staff.getSalary().doubleValue() );
+        }
         staffResponseDTO.status( staff.getStatus() );
         staffResponseDTO.typeStaff( staff.getTypeStaff() );
 
@@ -96,7 +101,7 @@ public class StaffMapperImpl implements StaffMapper {
             staff.setNumberPhone( dto.getNumberPhone() );
         }
         if ( dto.getSalary() != null ) {
-            staff.setSalary( dto.getSalary() );
+            staff.setSalary( BigDecimal.valueOf( dto.getSalary() ) );
         }
         if ( dto.getTypeStaff() != null ) {
             staff.setTypeStaff( dto.getTypeStaff() );

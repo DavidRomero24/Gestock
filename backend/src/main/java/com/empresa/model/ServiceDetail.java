@@ -14,7 +14,7 @@ public class ServiceDetail implements Serializable {
     @ManyToOne
     @MapsId("serviceId")
     @JoinColumn(name = "ID_Service", referencedColumnName = "ID_Service", nullable = false)
-    private Service service;
+    private ServiceGes service;
 
     @ManyToOne
     @MapsId("billId")
@@ -40,11 +40,11 @@ public class ServiceDetail implements Serializable {
         this.id = id;
     }
 
-    public Service getService() {
+    public ServiceGes getService() {
         return service;
     }
 
-    public void setService(Service service) {
+    public void setService(ServiceGes service) {
         this.service = service;
     }
 

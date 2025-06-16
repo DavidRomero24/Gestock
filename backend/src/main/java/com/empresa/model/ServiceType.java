@@ -17,7 +17,7 @@ public class ServiceType implements Serializable {
 
     // Relación con Service (uno a muchos)
     @OneToMany(mappedBy = "serviceType", fetch = FetchType.LAZY)
-    private List<Service> services;
+    private List<ServiceGes> services;
 
     // Constructor
     public ServiceType() {
@@ -40,11 +40,11 @@ public class ServiceType implements Serializable {
         this.serviceCategory = serviceCategory;
     }
 
-    public List<Service> getServices() {
+    public List<ServiceGes> getServices() {
         return services;
     }
 
-    public void setServices(List<Service> services) {
+    public void setServices(List<ServiceGes> services) {
         this.services = services;
     }
 }

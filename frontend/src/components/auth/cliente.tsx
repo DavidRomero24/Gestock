@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { Outlet, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ClientePage = () => {
+  const navigate = useNavigate();
   const clientes = [
     { id: 1, nombre: 'Pedro Picapiedra', fecha: '24/02/2021', entrego: 'Juan', ciudad: 'Ocaña', confirmado: true },
     { id: 2, nombre: 'Marta López', fecha: '22/02/2021', entrego: 'Ana', ciudad: 'Ocaña', confirmado: false },
@@ -15,16 +17,20 @@ const ClientePage = () => {
   return (
     <MainContent theme={theme}>
       <div className="inventory-dashboard">
-        <header>
+
+        <header onClick={() => navigate('/PageTwo')} style={{ cursor: 'pointer' }}>
           <img className="img_LogoGestockpagone" src="../src/assets/LogoGestock.png" alt="Logo de la empresa" />
           <h1>GESTOCK</h1>
         </header>
+
         <nav className="control-panel">
+          <div onClick={() => navigate('/PageTwo')} style={{ cursor: 'pointer' }}>
           <img className="img_gestockpagone" src="../src/assets/Gestock.png" alt="Logo de la empresa" />
+          </div>
           <ul>
             <li><Link to="/PanelDeControlPage">Panel de control</Link></li>
             <li><Link to="/EmpleadoPage">Empleados</Link></li>
-            <li style={{backgroundColor: '#eaeded'}}><Link to="/ClientePage">Clientes</Link></li>
+            <li style={{ backgroundColor: '#eaeded' }}><Link to="/ClientePage">Clientes</Link></li>
             <li><Link to="/ProveedorPage">Proveedores</Link></li>
             <li><Link to="/ProductoPage">Productos</Link></li>
             <li><Link to="/ServicioPage">Servicios</Link></li>
@@ -57,32 +63,36 @@ const ClientePage = () => {
             </ActionButtons>
           </HeaderSection>
           <TableContainer>
-            <table>
-              <thead>
-                <tr>
-                  <th>Editar</th>
-                  <th>ID</th>
-                  <th>Nombre</th>
-                  <th>Fecha</th>
-                  <th>Entregó</th>
-                  <th>Ciudad</th>
-                  <th>Confirmado</th>
-                </tr>
-              </thead>
-              <tbody className='tbody-cliente'>
-                {clientes.map((cliente) => (
-                  <tr key={cliente.id}>
-                    <td><button className="edit-btn">Editar</button></td>
-                    <td>{cliente.id}</td>
-                    <td>{cliente.nombre}</td>
-                    <td>{cliente.fecha}</td>
-                    <td>{cliente.entrego}</td>
-                    <td>{cliente.ciudad}</td>
-                    <td>{cliente.confirmado ? 'Sí' : 'No'}</td>
+            <Card>
+              <div className="card-header">
+                <h2>Clientes</h2>
+                <button className="add-button">Agregar cliente</button>
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Fecha</th>
+                    <th>Ciudad</th>
+                    <th>Confirmado</th>
+                    <th>Acciones</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {clientes.map((cliente) => (
+                    <tr key={cliente.id}>
+                      <td>{cliente.nombre}</td>
+                      <td>{cliente.fecha}</td>
+                      <td>{cliente.ciudad}</td>
+                      <td>{cliente.confirmado ? 'Sí' : 'No'}</td>
+                      <td>
+                        <button className="edit-btn">Editar</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </Card>
           </TableContainer>
         </main>
       </div>
@@ -214,17 +224,28 @@ const MainContent = styled.div`
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
+    background-color: white; /* Ensure the table has a white background */
+    border: 1px solid #ccc; /* Add border to the table */
   }
   th, td {
     padding: 10px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border: 1px solid #ccc; /* Add border to cells */
   }
   th {
-    background-color: ${(props) => props.theme.cardBackground};
+    background-color: #f0f0f0; /* Light gray for header cells */
+    font-weight: bold; /* Make header text bold */
+    text-align: center; /* Center-align header text */
+    color: #0066cc; /* Header text color */
+  }
+  tr:nth-child(even) {
+    background-color: #f9f9f9; /* Alternate row background color */
   }
   tr:hover {
     background-color: rgba(255,255,255,0.05);
+  }
+  .nombre-cell { /* Target the "Nombre" column cells */
+    background-color: white; /* Set background to white */
   }
   .switch {
     position: fixed;
@@ -298,29 +319,44 @@ const Dropdown = styled.div`
 const TableContainer = styled.div`
   overflow-x: auto;
   max-width: 100%; /* Limitar el ancho máximo */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    th, td {
-      padding: 10px;
-      border: 1px solid #ccc;
-      text-align: left;
-    }
-    .edit-btn {
-      background: #ffffff;
-      color: black;
-      border: none;
-      padding: 6px 10px;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .edit-btn:hover {
-      background: rgba(137, 186, 250, 1);
-    }
-  }
+`;
 
-  .tbody-cliente{
-  background: #0066cc;  
+const Card = styled.div`
+  background-color: white; /* Ensure the card has a white background */
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+`;
+
+const CardHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+
+const AddButton = styled.button`
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    background-color: #004c99;
+  }
+`;
+
+const EditButton = styled.button`
+  background-color: #000;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    background-color: #333;
   }
 `;
 
