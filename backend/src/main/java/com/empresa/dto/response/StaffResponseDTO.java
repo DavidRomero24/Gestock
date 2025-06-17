@@ -56,11 +56,4 @@ public class StaffResponseDTO {
     @Schema(description = "Fecha de contratación", example = "2020-01-15")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date hireDate;
-
-    // @Schema(description = "Indica si tiene acceso al sistema", example = "true")
-    // private Boolean hasSystemAccess;
-
-    // @Schema(description = "Fecha de última actualización", example = "2023-05-20T10:30:00")
-    // @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    // private Date lastUpdate;
 }

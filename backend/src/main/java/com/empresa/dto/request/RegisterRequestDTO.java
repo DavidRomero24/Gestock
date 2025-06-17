@@ -1,19 +1,37 @@
 package com.empresa.dto.request;
 
+import jakarta.validation.constraints.NotBlank;
+
+
 public class RegisterRequestDTO {
-    private String username;
-    private String password;
-    private String confirmPassword;
+    
+    
+    @NotBlank(message = "Nombre es obligatorio")
     private String firstName;
+    @NotBlank(message = "Segundo nombre es obligatorio")
     private String secondName;
+    @NotBlank(message = "Apellido obligatorio")
     private String lastName;
+    @NotBlank(message = "Usuario es obligatorio")
+    private String username;
+    private String email;
     private String phone;
     private String role;
+    private String password;
+    private String confirmPassword;
 
     public RegisterRequestDTO() {}
 
     public String getUsername() {
         return username;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public void setUsername(String username) {

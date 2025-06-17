@@ -5,8 +5,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+
+// import org.springframework.context.annotation.Bean;
 import org.springframework.lang.NonNull;
+// import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+// import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -34,6 +38,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         // ✅ Excluir rutas públicas del filtro
         if (path.startsWith("/api/auth") || path.startsWith("/swagger-ui") || path.startsWith("/v3/api-docs")) {
+            System.out.println("Ruta pública: " + path);
             filterChain.doFilter(request, response);
             return;
         }
@@ -67,4 +72,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         filterChain.doFilter(request, response);
     }
+
+//     @Bean
+// public AuthenticationProvider authenticationProvider() {
+//     DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+//     authProvider.setUserDetailsService(userDetailsService);
+//     // authProvider.setPasswordEncoder(passwordEncoder());
+//     return authProvider;
+// }
+
 }

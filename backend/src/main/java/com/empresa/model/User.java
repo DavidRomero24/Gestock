@@ -40,7 +40,7 @@ public class User implements Serializable {
     @Column(name = "Active", nullable = false)
     private boolean active = true;
 
-    @Column(name = "Last_Login")
+    @Column(name = "last_login")
     private LocalDateTime lastLogin;
 
     public User() {}

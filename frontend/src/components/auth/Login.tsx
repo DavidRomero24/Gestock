@@ -1,25 +1,37 @@
 import { useState } from "react";
 import styled, { ThemeProvider } from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { AxiosError } from "axios";
+
+
+
+// Configuración de Axios
+const API_URL = "http://localhost:8080/api/auth";
 
 const Login = () => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({
+  // Estados para Login
+  const [loginData, setLoginData] = useState({
+    username: "",
+    password: ""
+  });
+
+  // Estados para Register
+  const [registerData, setRegisterData] = useState({
+    username: "",
     firstName: "",
     secondName: "",
     lastName: "",
     email: "",
     phone: "",
     password: "",
-    confirmPassword: ""
-  });
-
-  const [login, setLogin] = useState({
-    email: "",
-    password: ""
+    confirmPassword: "",
+    role: "USER" // Valor por defecto
   });
 
   const toggleTheme = () => {
@@ -32,78 +44,110 @@ const Login = () => {
       : 'radial-gradient(circle, rgba(137, 186, 250, 1) 0%, rgba(79, 108, 255, 1) 100%)'
   };
 
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const registerData = {
-      username: form.email,
-      password: form.password,
-      confirmPassword: form.confirmPassword,
-      firstName: form.firstName,
-      secondName: form.secondName,
-      lastName: form.lastName,
-      phone: form.phone,
-      role: "USER"
-    };
-
-    try {
-      const response = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(registerData)
-      });
-
-      if (!response.ok) {
-        const error = await response.text();
-        throw new Error(error);
-      }
-
-      const data = await response.json();
-      localStorage.setItem("token", data.token);
-      alert("Registro exitoso. ¡Bienvenido!");
-      navigate("/PageTwo");
-    } catch (error: unknown) {
-  if (error instanceof Error) {
-    alert("Error al registrar: " + error.message);
-  } else {
-    alert("Error desconocido al registrar.");
-  }
-}
-
+  // Manejadores de cambio para Login
+  const handleLoginChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setLoginData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
-  const handleLogin = async (e: React.FormEvent) => {
+  // Manejadores de cambio para Register
+  const handleRegisterChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setRegisterData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  // Manejador de envío para Login
+  const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    setError("");
+    
     try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          username: login.email,
-          password: login.password
-        })
-      });
+      const response = await axios.post(`${API_URL}/login`, loginData);
+      console.log("Login exitoso:", response.data);
+      
+      // Guardar token en localStorage
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("refreshToken", response.data.refreshToken);
+      localStorage.setItem("username", response.data.username);
+      localStorage.setItem("role", response.data.role);
+      
+      // Redirigir al dashboard
+      navigate("/PageTwo");
+    } catch (err) {
+      setError("Usuario o contraseña incorrectos");
+      console.error("Error en login:", err);
+    }
+  };
 
-      if (!response.ok) {
-        const error = await response.text();
-        throw new Error(error);
+  // Manejador de envío para Register
+  const handleRegisterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    
+    try {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(registerData.email)) {
+      throw new Error("Por favor ingresa un email válido");
+    }
+      // Validar que las contraseñas coincidan
+      if (registerData.password !== registerData.confirmPassword) {
+        throw new Error("Las contraseñas no coinciden");
       }
 
-      const data = await response.json();
-      localStorage.setItem("token", data.token);
-      alert("Inicio de sesión exitoso");
-      navigate("/PageTwo");
-    } catch (error: unknown) {
-  if (error instanceof Error) {
-    alert("Error al iniciar sesión: " + error.message);
+      const response = await axios.post(`${API_URL}/register`, {
+        username: registerData.username,
+        password: registerData.password,
+        confirmPassword: registerData.confirmPassword,
+        firstName: registerData.firstName,
+        secondName: registerData.secondName,
+        lastName: registerData.lastName,
+        phone: registerData.phone,
+        role: registerData.role
+      });
+
+      console.log("Registro exitoso:", response.data);
+      
+      // Mostrar mensaje de éxito y cambiar a login
+      setError("¡Registro exitoso! Por favor inicia sesión");
+      setIsFlipped(false);
+      
+      // Limpiar formulario
+      setRegisterData({
+        username: "",
+        firstName: "",
+        secondName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        password: "",
+        confirmPassword: "",
+        role: "USER"
+      });
+    } 
+    // catch (err) {
+  // if (err instanceof AxiosError && err.response?.data?.message) {
+  //   setError(err.response.data.message);
+  // } else {
+  //   setError("Error en el registro");
+  // }
+  // console.error("Error en registro:", err);
+   catch (err) {
+  if (err instanceof AxiosError) {
+    if (err.response?.status === 409) {
+      setError("El nombre de usuario o email ya está registrado");
+    } else {
+      setError(err.message || "Error en el registro. Por favor intenta nuevamente.");
+    }
   } else {
-    alert("Error desconocido al iniciar sesión.");
+    setError("Error inesperado en el registro.");
   }
+
+  console.error("Error en registro:", err);
 }
   };
 
@@ -139,25 +183,33 @@ const Login = () => {
           </div>
         </div>
 
+        {/* Main login container */}
         <div className="container">
+          {/* Flip card */}
           <div className={`flip-card ${isFlipped ? 'flipped' : ''}`}>
             <div className="flip-card-inner">
+              {/* Front - Login */}
               <div className="flip-card-front">
                 <h2>Iniciar Sesión</h2>
-                <form className="auth-form" onSubmit={handleLogin}>
-                  <input
-                    type="email"
-                    placeholder="Email"
-                    value={login.email}
-                    onChange={(e) => setLogin({ ...login, email: e.target.value })}
-                    required
+                {error && !isFlipped && <div className="error-message">{error}</div>}
+                <form className="auth-form" onSubmit={handleLoginSubmit}>
+                  <input 
+                    type="text" 
+                    name="username"
+                    placeholder="Nombre de usuario" 
+                    value={loginData.username}
+                    onChange={(e) => setLoginData({ ...loginData, username: e.target.value })}
+                    // {handleLoginChange}
+                    required 
                   />
-                  <input
-                    type="password"
-                    placeholder="Contraseña"
-                    value={login.password}
-                    onChange={(e) => setLogin({ ...login, password: e.target.value })}
-                    required
+                  <input 
+                    type="password" 
+                    name="password"
+                    placeholder="Contraseña" 
+                    value={loginData.password}
+                    onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+                    // {handleLoginChange}
+                    required 
                   />
                   <button type="submit">Ingresar</button>
                 </form>
@@ -165,59 +217,87 @@ const Login = () => {
                   <Link to="/forgot-password">¿Olvidaste tu contraseña?</Link>
                 </div>
               </div>
-
+              
+              {/* Back - Register */}
               <div className="flip-card-back">
                 <h2>Registrarse</h2>
-                <form className="auth-form" onSubmit={handleRegister}>
+                {error && isFlipped && <div className="error-message">{error}</div>}
+                <form className="auth-form" onSubmit={handleRegisterSubmit}>
                   <div className="name-fields">
-                    <input
-                      type="text"
-                      placeholder="Primer Nombre"
-                      value={form.firstName}
-                      onChange={(e) => setForm({ ...form, firstName: e.target.value })}
-                      required
+                    <input 
+                      type="text" 
+                      name="firstName"
+                      placeholder="Primer Nombre" 
+                      value={registerData.firstName}
+                      onChange={handleRegisterChange}
+                      required 
                     />
-                    <input
-                      type="text"
-                      placeholder="Segundo Nombre"
-                      value={form.secondName}
-                      onChange={(e) => setForm({ ...form, secondName: e.target.value })}
+                    <input 
+                      type="text" 
+                      name="secondName"
+                      placeholder="Segundo Nombre" 
+                      value={registerData.secondName}
+                      onChange={handleRegisterChange}
                     />
                   </div>
-                  <input
-                    type="text"
-                    placeholder="Apellidos"
-                    value={form.lastName}
-                    onChange={(e) => setForm({ ...form, lastName: e.target.value })}
-                    required
+                  <input 
+                    type="text" 
+                    name="lastName"
+                    placeholder="Apellidos" 
+                    value={registerData.lastName}
+                    onChange={handleRegisterChange}
+                    required 
                   />
-                  <input
-                    type="email"
-                    placeholder="Email"
-                    value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    required
+                  <input 
+                    type="text" 
+                    name="username"
+                    placeholder="Nombre de usuario" 
+                    value={registerData.username}
+                    onChange={handleRegisterChange}
+                    required 
                   />
-                  <input
-                    type="tel"
-                    placeholder="Teléfono"
-                    value={form.phone}
-                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                  <input 
+                    type="email" 
+                    name="email"
+                    placeholder="Email" 
+                    value={registerData.email}
+                    onChange={handleRegisterChange}
+                    required 
                   />
+                  <input 
+                    type="tel" 
+                    name="phone"
+                    placeholder="Teléfono" 
+                    value={registerData.phone}
+                    onChange={handleRegisterChange}
+                    required 
+                  />
+                  <select
+                    name="role"
+                    value={registerData.role}
+                    onChange={handleRegisterChange}
+                    className="role-select"
+                  >
+                    <option value="USER">Usuario Normal</option>
+                    <option value="STAFF">Staff</option>
+                    <option value="ADMIN">Administrador</option>
+                  </select>
                   <div className="password-fields">
-                    <input
-                      type="password"
-                      placeholder="Contraseña"
-                      value={form.password}
-                      onChange={(e) => setForm({ ...form, password: e.target.value })}
-                      required
+                    <input 
+                      type="password" 
+                      name="password"
+                      placeholder="Contraseña" 
+                      value={registerData.password}
+                      onChange={handleRegisterChange}
+                      required 
                     />
-                    <input
-                      type="password"
-                      placeholder="Confirmar contraseña"
-                      value={form.confirmPassword}
-                      onChange={(e) => setForm({ ...form, confirmPassword: e.target.value })}
-                      required
+                    <input 
+                      type="password" 
+                      name="confirmPassword"
+                      placeholder="Confirmar contraseña" 
+                      value={registerData.confirmPassword}
+                      onChange={handleRegisterChange}
+                      required 
                     />
                   </div>
                   <button type="submit">Registrarse</button>
@@ -226,11 +306,15 @@ const Login = () => {
             </div>
           </div>
 
+          {/* Toggle switch */}
           <div className="toggle-switch">
             <span className={!isFlipped ? 'active' : ''}>Iniciar Sesión</span>
             <div 
               className={`switch ${isFlipped ? 'flipped' : ''}`} 
-              onClick={() => setIsFlipped(!isFlipped)}
+              onClick={() => {
+                setIsFlipped(!isFlipped);
+                setError("");
+              }}
             >
               <div className="switch-handle" />
             </div>
@@ -250,7 +334,7 @@ const Login = () => {
             <div className="star star_2" />
             <div className="star star_3" />
             <svg className="cloud" viewBox="0 0 16 16">
-              <path fill="#fff" d="m391.84 540.91c-.421-.329-.949-.524-1.523-.524-1.351 0-2.451 1.084-2.485 2.435-1.395.526-2.388 1.88-2.388 3.466 0 1.874 1.385 3.423 3.182 3.667v.034h12.73v-.006c1.775-.104 3.182-1.584 3.182-3.395 0-1.747-1.309-3.186-2.994-3.379.007-.106.011-.214.011-.322 0-2.707-2.271-4.901-5.072-4.901-2.073 0-3.856 1.202-4.643 2.925"/>
+              <path fill="#323232" d="m391.84 540.91c-.421-.329-.949-.524-1.523-.524-1.351 0-2.451 1.084-2.485 2.435-1.395.526-2.388 1.88-2.388 3.466 0 1.874 1.385 3.423 3.182 3.667v.034h12.73v-.006c1.775-.104 3.182-1.584 3.182-3.395 0-1.747-1.309-3.186-2.994-3.379.007-.106.011-.214.011-.322 0-2.707-2.271-4.901-5.072-4.901-2.073 0-3.856 1.202-4.643 2.925"/>
             </svg>
           </span>
         </label>
@@ -267,6 +351,22 @@ const StyledWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   transition: background 0.5s ease;
+
+  .error-message {
+    color: #ff3333;
+    background-color: #ffeeee;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 14px;
+    max-width: 100%;
+    border: 1px solid #ffaaaa;
+  }
+
+  .input-error {
+    border-color: #ff3333 !important;
+  }
 
   /* Social media styles (same as Welcome) */
   .social {
@@ -431,45 +531,61 @@ const StyledWrapper = styled.div`
     font-size: 25px;
     font-weight: 900;
     color: #323232;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+  }
+
+  /* Error message */
+  .error-message {
+    color: #ff3333;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 14px;
+    max-width: 100%;
   }
 
   /* Form styles */
   .auth-form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
     width: 100%;
   }
 
   .name-fields, .password-fields {
     display: flex;
-    gap: 20px;
+    gap: 15px;
     width: 100%;
   }
 
-  .auth-form input {
+  .auth-form input, .role-select {
     width: 100%;
-    height: 50px;
+    height: 45px;
     border-radius: 8px;
     border: 2px solid #323232;
+    
     padding: 0 15px;
-    font-size: 16px;
+    font-size: 15px;
     outline: none;
   }
 
+  .role-select {
+    background-color: #323232;
+    cursor: pointer;
+  }
+
   .auth-form button {
-    margin-top: 20px;
+    margin-top: 15px;
     width: 140px;
-    height: 50px;
+    height: 45px;
     border-radius: 8px;
     border: 2px solid #323232;
     background-color: #000;
     color: white;
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
+    align-self: center;
   }
 
   .auth-form button:hover {
@@ -499,13 +615,14 @@ const StyledWrapper = styled.div`
     display: flex;
     align-items: center;
     gap: 20px;
+    margin-top: 50px;
   }
 
   .toggle-switch span {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     color: #323232;
-    width: 150px;
+    width: 120px;
     text-align: center;
   }
 
@@ -548,7 +665,7 @@ const StyledWrapper = styled.div`
   }
 
   /* Theme toggle switch (same as Welcome) */
-  .switch-theme {
+  .switch {
     align-self: flex-start;
     margin-top: 10px;
     margin-right: 10px;
@@ -561,7 +678,7 @@ const StyledWrapper = styled.div`
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
 
-  .switch-theme input {
+  .switch input {
     opacity: 0;
     width: 0;
     height: 0;
@@ -591,6 +708,7 @@ const StyledWrapper = styled.div`
     transition: 0.4s;
     transition-timing-function: cubic-bezier(0.81, -0.04, 0.38, 1.5);
     box-shadow: inset 8px -4px 0px 0px #fff;
+    
   }
 
   .switch input:checked + .slider {
@@ -603,7 +721,7 @@ const StyledWrapper = styled.div`
   }
 
   .star {
-    background-color: #fff;
+    background-color: #323232;
     border-radius: 50%;
     position: absolute;
     width: 5px;

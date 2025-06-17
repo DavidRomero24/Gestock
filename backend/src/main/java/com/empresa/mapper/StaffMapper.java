@@ -17,12 +17,6 @@ public interface StaffMapper {
     Staff toEntity(StaffRequestDTO dto);
 
     @Mapping(target = "fullName", expression = "java(generateFullName(staff))")
-    // @Mapping(target = "fullName", expression = "java("
-    //     + "staff.getName1() + ' ' + "
-    //     + "(staff.getName2() != null ? staff.getName2() + ' ' : '') + "
-    //     + "staff.getLastName1() + ' ' + "
-    //     + "(staff.getLastName2() != null ? staff.getLastName2() : '')"
-    //     + ")")
     StaffResponseDTO toDto(Staff staff);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

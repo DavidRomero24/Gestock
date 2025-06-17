@@ -7,6 +7,7 @@ com\empresa\repository\ServiceTypeRepository.class
 com\empresa\service\StaffService.class
 com\empresa\dto\response\BillDetailResponseDTO.class
 com\empresa\service\impl\CustomerServiceImpl.class
+com\empresa\dto\exception\UserAlreadyExistsException.class
 com\empresa\dto\request\RegisterRequestDTO.class
 com\empresa\service\impl\TransferPaymentServiceImpl.class
 com\empresa\controller\ProductController.class
@@ -26,9 +27,11 @@ com\empresa\service\BillSupplyService.class
 com\empresa\dto\request\SupplierRequestDTO.class
 com\empresa\dto\exception\ResourceNotFoundException.class
 com\empresa\controller\DbTestController.class
+com\empresa\dto\exception\GlobalExceptionHandler.class
 com\empresa\mapper\BillSupplyMapperImpl.class
 com\empresa\mapper\StaffMapperImpl.class
 com\empresa\mapper\TransferPaymentMapper.class
+com\empresa\dto\exception\PasswordMismatchException.class
 com\empresa\model\BillSupply.class
 com\empresa\dto\request\PaymentRequestDTO.class
 com\empresa\dto\exception\DuplicateResourceException.class
@@ -98,6 +101,7 @@ com\empresa\model\Bill.class
 com\empresa\controller\SupplierController.class
 com\empresa\model\BillSupplyDetail$BillSupplyDetailId.class
 com\empresa\dto\response\ServiceGesResponseDTO.class
+com\empresa\dto\exception\InvalidCredentialsException.class
 com\empresa\service\CashPaymentService.class
 com\empresa\dto\request\ProductRequestDTO.class
 com\empresa\dto\response\PaymentDetailDTO.class
@@ -115,6 +119,7 @@ com\empresa\dto\response\PaginationResponseDTO$1.class
 com\empresa\dto\response\PaymentResponseDTO.class
 com\empresa\mapper\SupplierMapperImpl.class
 com\empresa\dto\exception\IllegalOperationException.class
+com\empresa\dto\exception\InvalidRefreshTokenException.class
 com\empresa\dto\response\ServiceDetailResponseDTO.class
 com\empresa\model\CashPayment.class
 com\empresa\repository\SupplierRepository.class

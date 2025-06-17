@@ -5,6 +5,7 @@ C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\j
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\repository\ServiceGesRepository.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\response\PaymentResponseDTO.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\service\PaymentService.java
+C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\exception\InvalidCredentialsException.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\response\TransferPaymentResponseDTO.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\response\SupplierResponseDTO.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\response\ErrorResponse.java
@@ -78,6 +79,7 @@ C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\j
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\request\ServiceDetailRequestDTO.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\service\CustomerService.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\response\CustomerResponseDTO.java
+C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\exception\GlobalExceptionHandler.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\model\ServiceType.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\repository\BillDetailRepository.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\controller\SupplierController.java
@@ -92,6 +94,7 @@ C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\j
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\model\enums\StaffStatus.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\service\impl\CashPaymentServiceImpl.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\model\ServiceDetail.java
+C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\exception\UserAlreadyExistsException.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\security\JwtService.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\service\BillService.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\response\PaymentInfoDTO.java
@@ -103,6 +106,7 @@ C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\j
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\model\BillDetail.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\repository\BillSupplyDetailRepository.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\repository\CustomerRepository.java
+C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\exception\InvalidRefreshTokenException.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\controller\CustomerController.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\service\impl\SupplierServiceImpl.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\mapper\ServiceGesMapper.java
@@ -116,6 +120,7 @@ C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\j
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\repository\UserRepository.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\repository\ProductRepository.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\model\Bill.java
+C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\exception\PasswordMismatchException.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\request\BillSupplyDetailRequestDTO.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\service\impl\PaymentServiceImpl.java
 C:\Users\Usuario\Desktop\6-Semestre\InventoryManagementSystem\backend\src\main\java\com\empresa\dto\request\StaffSalaryUpdateDTO.java
